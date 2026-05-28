@@ -125,6 +125,12 @@
     ]);
     estado     = est  || "abierta";
     votos      = vts  || {};
+    // Normalizar claves de votos: convertir guiones a puntos para mostrar
+    const votosNorm = {};
+    Object.entries(votos).forEach(([k,v]) => {
+      votosNorm[k.replace(/-/g, '.')] = v;
+    });
+    votos = votosNorm;
     socios     = socs ? Object.values(socs) : [];
     propuestas = props? Object.values(props): [];
     categorias = cats ? mergeCats(Object.values(cats)) : DEFAULT_CATS;
@@ -146,7 +152,13 @@
   }
 
   function suscribirResultados() {
-    db.ref("votos").on("value",  snap => { votos  = snap.val() || {}; renderResultados(); });
+    db.ref("votos").on("value",  snap => {
+      const raw = snap.val() || {};
+      const norm = {};
+      Object.entries(raw).forEach(([k,v]) => { norm[k.replace(/-/g,'.')] = v; });
+      votos = norm;
+      renderResultados();
+    });
     db.ref("socios").on("value", snap => { socios = snap.val() ? Object.values(snap.val()) : []; });
     db.ref("estado").on("value", snap => { estado = snap.val() || "abierta"; });
   }
@@ -507,8 +519,11 @@
     if (btnVoto) btnVoto.onclick = async () => {
       const newVotos = JSON.parse(JSON.stringify(votos));
       Object.entries(seleccion).forEach(([catId,cand]) => {
-        if (!newVotos[catId]) newVotos[catId]={};
-        newVotos[catId][cand] = (newVotos[catId][cand]||0)+1;
+        const key = catId.replace(/\./g, '-');
+        if (!newVotos[key]) newVotos[key]={};
+        // Sanitizar nombre candidato para Firebase (quitar puntos y caracteres inválidos)
+        const candKey = cand.replace(/[.#$\[\]]/g, '_');
+        newVotos[key][candKey] = (newVotos[key][candKey]||0)+1;
       });
       await fbSet("votos", newVotos);
       const fecha = new Date().toLocaleString("es-ES");
