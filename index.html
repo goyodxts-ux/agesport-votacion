@@ -345,36 +345,73 @@
   }
 
   // ── PROPONER ──────────────────────────────────────────────────────────────
+  function togglePropForm(catId) {
+    const form = document.getElementById('propform-'+catId);
+    const btn  = document.getElementById('probbtn-'+catId);
+    if (!form) return;
+    const visible = form.style.display !== 'none';
+    form.style.display = visible ? 'none' : 'block';
+    if (btn) btn.textContent = visible ? '+ Proponer' : 'Cancelar';
+  }
+
+  function updateCharCount(catId) {
+    const ta = document.getElementById('proparg-'+catId);
+    const el = document.getElementById('propchar-'+catId);
+    if (ta && el) {
+      el.textContent = ta.value.length+'/600';
+      el.style.color = ta.value.length < 80 ? '#E65100' : '#757575';
+    }
+  }
+
+  async function enviarPropuesta(catId) {
+    const nombre  = document.getElementById('propnombre-'+catId)?.value.trim();
+    const mun     = document.getElementById('propmun-'+catId)?.value.trim();
+    const argText = document.getElementById('proparg-'+catId)?.value.trim();
+    if (!nombre || nombre.length < 2) { alert('Escribe el nombre del candidato'); return; }
+    if (!argText || argText.length < 80) { alert('El argumento debe tener al menos 80 caracteres'); return; }
+    const nueva = {
+      id: 'prop_'+Date.now(), catId, nombre,
+      municipio: mun||'—', argumento: argText,
+      socio: socioActual.nombre,
+      fecha: new Date().toLocaleString('es-ES'),
+      aprobada: false
+    };
+    await db.ref('propuestas').push(nueva);
+    propuestas.push(nueva);
+    alert('Propuesta enviada. El administrador la revisara antes de publicarla.');
+    togglePropForm(catId);
+    document.getElementById('propnombre-'+catId).value = '';
+    document.getElementById('propmun-'+catId).value = '';
+    document.getElementById('proparg-'+catId).value = '';
+  }
+
   function renderProponer() {
-    if (estado==="cerrada") return `<div class="card"><div class="empty"><div class="empty-icon">🔒</div><div class="empty-title">Votación cerrada</div></div></div>`;
-    return `
-    <div class="card">
-      <div class="card-title">✍️ Proponer candidatura</div>
-      <div class="card-sub">Propón una candidatura adicional en cualquier categoría. Obligatorio argumentar al menos 80 caracteres. El administrador la revisará antes de incluirla en la votación.</div>
-    </div>
-    ${categorias.map(cat => `
-    <div style="border:2px solid #E8F5E9;border-radius:14px;overflow:hidden;margin-bottom:16px">
-      <div style="background:linear-gradient(135deg,#FFF8E1,#FFF3E0);padding:14px 20px;display:flex;align-items:center;gap:12px">
-        <div class="cat-num" style="background:#FFF8E1;color:#E65100">${cat.id}</div>
-        <div style="flex:1"><div style="font-weight:700;font-size:15px">${cat.nombre}</div></div>
-        <button class="btn btn-amber btn-sm prop-toggle" data-cat="${cat.id}">+ Proponer</button>
-      </div>
-      <div class="prop-form-wrap" id="propform-${cat.id}" style="display:none;padding:20px">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:12px">
-          <div><label class="label label-req">Candidato / entidad</label><input class="input prop-nombre" data-cat="${cat.id}" placeholder="Nombre completo"></div>
-          <div><label class="label">Municipio</label><input class="input prop-mun" data-cat="${cat.id}" placeholder="Municipio"></div>
-        </div>
-        <div style="margin-bottom:12px">
-          <label class="label label-req">¿Por qué merece este premio? (mín. 80 caracteres)</label>
-          <textarea class="textarea prop-arg" data-cat="${cat.id}" placeholder="Argumenta los méritos del candidato..." maxlength="600"></textarea>
-          <div class="char-count prop-char" data-cat="${cat.id}">0/600</div>
-        </div>
-        <div style="margin-bottom:16px;padding:8px 12px;background:#F1F8E9;border-radius:8px;font-size:13px;color:#2E7D32">
-          👤 Propuesta en nombre de: <strong>${socioActual.nombre}</strong>
-        </div>
-        <button class="btn btn-primary prop-enviar" data-cat="${cat.id}">📩 Enviar propuesta</button>
-      </div>
-    </div>`).join("")}`;
+    if (estado==="cerrada") return '<div class="card"><div class="empty"><div class="empty-icon">&#128274;</div><div class="empty-title">Votacion cerrada</div></div></div>';
+    let html2 = '<div class="card"><div class="card-title">&#9997;&#65039; Proponer candidatura</div><div class="card-sub">Propón una candidatura adicional. Obligatorio argumentar al menos 80 caracteres. El administrador la revisara antes de incluirla.</div></div>';
+    categorias.forEach(function(cat) {
+      const cid = cat.id;
+      const num = cid.replace('cat_','').replace(/_/g,'.');
+      html2 += '<div style="border:2px solid #E8F5E9;border-radius:14px;overflow:hidden;margin-bottom:16px">';
+      html2 += '<div style="background:linear-gradient(135deg,#FFF8E1,#FFF3E0);padding:14px 20px;display:flex;align-items:center;gap:12px">';
+      html2 += '<div class="cat-num" style="background:#FFF8E1;color:#E65100">'+num+'</div>';
+      html2 += '<div style="flex:1"><div style="font-weight:700;font-size:15px">'+cat.nombre+'</div></div>';
+      html2 += '<button id="probbtn-'+cid+'" class="btn btn-amber btn-sm" onclick="togglePropForm(''+cid+'')">+ Proponer</button>';
+      html2 += '</div>';
+      html2 += '<div id="propform-'+cid+'" style="display:none;padding:20px">';
+      html2 += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:12px">';
+      html2 += '<div><label class="label">Candidato / entidad *</label><input id="propnombre-'+cid+'" class="input" placeholder="Nombre completo"></div>';
+      html2 += '<div><label class="label">Municipio</label><input id="propmun-'+cid+'" class="input" placeholder="Municipio"></div>';
+      html2 += '</div>';
+      html2 += '<div style="margin-bottom:12px"><label class="label">Por que merece este premio? (min. 80 caracteres) *</label>';
+      html2 += '<textarea id="proparg-'+cid+'" class="textarea" placeholder="Argumenta los meritos del candidato..." maxlength="600" oninput="updateCharCount(''+cid+'')"></textarea>';
+      html2 += '<div id="propchar-'+cid+'" class="char-count">0/600</div></div>';
+      html2 += '<div style="margin-bottom:16px;padding:8px 12px;background:#F1F8E9;border-radius:8px;font-size:13px;color:#2E7D32">Propuesta en nombre de: <strong>'+socioActual.nombre+'</strong></div>';
+      html2 += '<div style="display:flex;gap:12px">';
+      html2 += '<button class="btn btn-primary" onclick="enviarPropuesta(''+cid+'')">Enviar propuesta</button>';
+      html2 += '<button class="btn btn-secondary" onclick="togglePropForm(''+cid+'')">Cancelar</button>';
+      html2 += '</div></div></div>';
+    });
+    return html2;
   }
 
   // ── ADMIN ─────────────────────────────────────────────────────────────────
