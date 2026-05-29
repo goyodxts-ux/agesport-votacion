@@ -501,9 +501,9 @@
         const main = document.getElementById("main-content");
         main.dataset.tab = btn.dataset.tab;
         if      (btn.dataset.tab==="votar")      main.innerHTML = renderVotar();
-        else if (btn.dataset.tab==="proponer")   main.innerHTML = renderProponer();
-        else if (btn.dataset.tab==="resultados") { main.innerHTML = renderResultadosHTML(); }
-        else if (btn.dataset.tab==="admin")      main.innerHTML = renderAdmin();
+        else if (btn.dataset.tab==="proponer")   { main.innerHTML = renderProponer(); bindEvents(); return; }
+        else if (btn.dataset.tab==="resultados") { main.innerHTML = renderResultadosHTML(); bindEvents(); return; }
+        else if (btn.dataset.tab==="admin")      { main.innerHTML = renderAdmin(); bindEvents(); return; }
         bindEvents();
       };
     });
