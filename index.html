@@ -252,10 +252,10 @@ body{font-family:'DM Sans',sans-serif;background:#F1F8E9;color:#1A1A1A;min-heigh
         '</header>'+
         '<div style="background:white;border-bottom:1px solid #E8F5E9;display:flex;justify-content:center"><img src="'+LOGO_BANNER+'" style="max-width:440px;width:100%;max-height:68px;object-fit:contain;padding:5px 20px"></div>'+
         '<div class="tab-bar" id="tab-bar">'+
-          '<button class="tab-btn active" onclick="showTab(this,'votar')">Votar</button>'+
-          '<button class="tab-btn inactive" onclick="showTab(this,'proponer')">Proponer</button>'+
-          (socioActual.haVotado||socioActual.esAdmin ? '<button class="tab-btn inactive" onclick="showTab(this,'resultados')">Resultados</button>' : '')+
-          (socioActual.esAdmin ? '<button class="tab-btn inactive" onclick="showTab(this,'admin')">Admin</button>' : '')+
+          '<button class="tab-btn active" onclick="showTab(this, 1)">Votar</button>'+
+          '<button class="tab-btn inactive" onclick="showTab(this, 2)">Proponer</button>'+
+          (socioActual.haVotado||socioActual.esAdmin ? '<button class="tab-btn inactive" onclick="showTab(this, 3)">Resultados</button>' : '')+
+          (socioActual.esAdmin ? '<button class="tab-btn inactive" onclick="showTab(this, 4)">Admin</button>' : '')+
         '</div>'+
         '<main class="main" id="main-content"></main>'+
       '</div>';
@@ -268,10 +268,10 @@ body{font-family:'DM Sans',sans-serif;background:#F1F8E9;color:#1A1A1A;min-heigh
     var btns = document.querySelectorAll(".tab-btn");
     btns.forEach(function(b){ b.className="tab-btn inactive"; });
     btn.className="tab-btn active";
-    if (tab==="votar")      renderVotar();
-    else if (tab==="proponer")   renderProponer();
-    else if (tab==="resultados") renderResultados();
-    else if (tab==="admin")      renderAdmin();
+    if (tab===1||tab==="votar")           renderVotar();
+    else if (tab===2||tab==="proponer")   renderProponer();
+    else if (tab===3||tab==="resultados") renderResultados();
+    else if (tab===4||tab==="admin")      renderAdmin();
   };
 
   // ── VOTAR ──────────────────────────────────────────────────────────────────
@@ -344,10 +344,10 @@ body{font-family:'DM Sans',sans-serif;background:#F1F8E9;color:#1A1A1A;min-heigh
       var tabBar = el("tab-bar");
       if (tabBar) {
         tabBar.innerHTML =
-          '<button class="tab-btn inactive" onclick="showTab(this,'votar')">Votar</button>'+
-          '<button class="tab-btn inactive" onclick="showTab(this,'proponer')">Proponer</button>'+
-          '<button class="tab-btn active" onclick="showTab(this,'resultados')">Resultados</button>'+
-          (socioActual.esAdmin?'<button class="tab-btn inactive" onclick="showTab(this,'admin')">Admin</button>':'');
+          '<button class="tab-btn inactive" onclick="showTab(this,1)">Votar</button>'+
+          '<button class="tab-btn inactive" onclick="showTab(this,2)">Proponer</button>'+
+          '<button class="tab-btn active" onclick="showTab(this,3)">Resultados</button>'+
+          (socioActual.esAdmin?'<button class="tab-btn inactive" onclick="showTab(this,4)">Admin</button>':'');
       }
       setHTML("main-content",
         '<div class="card" style="text-align:center;padding:56px 28px">'+
