@@ -560,12 +560,12 @@
           <button class="btn btn-primary" onclick="document.querySelector('[data-tab=resultados]').click()">📊 Ver resultados en tiempo real</button>
         </div>`;
       // Redibujar header para mostrar pestaña Resultados
-      document.querySelector('.tab-bar-outer').innerHTML = \`
+      document.querySelector('.tab-bar-outer').innerHTML = `
         <button class="tab-btn inactive" data-tab="votar">🗳️ Votar</button>
         <button class="tab-btn inactive" data-tab="proponer">✍️ Proponer</button>
         <button class="tab-btn active" data-tab="resultados">📊 Resultados</button>
-        \${socioActual.esAdmin ? '<button class="tab-btn inactive" data-tab="admin">⚙️ Admin</button>' : ''}
-      \`;
+        ${socioActual.esAdmin ? '<button class="tab-btn inactive" data-tab="admin">⚙️ Admin</button>' : ''}
+      `;
       bindEvents();
     };
 
