@@ -225,6 +225,11 @@ function init(){
     props=v?Object.values(v):[];
     props.filter(function(p){return p.aprobada}).forEach(addPropToCat);
   });
+  // Cargar lista de emails autorizados desde Firebase (si existe, sobreescribe la lista hardcoded)
+  fget("emails_auth",function(v){
+    if(v&&Array.isArray(v)&&v.length>0) SOCIOS_AUTH=v;
+    else if(v&&typeof v==="object") SOCIOS_AUTH=Object.values(v);
+  });
   db.ref("votos").on("value",function(s){
     votos=s.val()||{};
     if(q("main")&&q("main").dataset.v==="res") showRes();
@@ -864,6 +869,76 @@ function showAdm(){
     q("gbopen").style.display="inline-flex";
     q("gnom").value="";q("gmun").value="";q("garg").value="";
   });
+  // ── Sección gestión emails autorizados ──
+  var ecard=document.createElement("div");
+  ecard.className="card";
+  ecard.innerHTML='<div class="ct" style="font-size:16px">Socios autorizados a votar</div>'+
+    '<div class="cs">Gestiona los emails que pueden acceder a la votacion. Total: <strong id="etotal">'+SOCIOS_AUTH.length+'</strong></div>'+
+    '<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">'+
+    '<input class="inp" id="enuevo" placeholder="nuevo@email.com" style="flex:1;min-width:200px">'+
+    '<button class="btn bp bsm" id="beadd">+ Aniadir</button>'+
+    '</div>'+
+    '<div id="emailist" style="max-height:300px;overflow-y:auto"></div>';
+  el.appendChild(ecard);
+
+  function renderEmailList(){
+    var el2=q("emailist");
+    if(!el2)return;
+    el2.innerHTML="";
+    SOCIOS_AUTH.forEach(function(em,i){
+      var row=document.createElement("div");
+      row.className="citem";
+      row.style.marginBottom="4px";
+      row.innerHTML=
+        '<span style="font-size:12px;color:#333">'+em+'</span>'+
+        '<div style="display:flex;gap:5px">'+
+        '<button class="btn bs bsm" data-eedit="'+i+'">Editar</button>'+
+        '<button class="btn bd bsm" data-edel="'+i+'">X</button>'+
+        '</div>';
+      el2.appendChild(row);
+    });
+    if(q("etotal"))q("etotal").textContent=SOCIOS_AUTH.length;
+  }
+  renderEmailList();
+
+  function saveEmails(){
+    fset("emails_auth",SOCIOS_AUTH).then(function(){
+      renderEmailList();
+    });
+  }
+
+  q("beadd").addEventListener("click",function(){
+    var em=q("enuevo").value.trim().toLowerCase();
+    if(!em||em.indexOf("@")<0){alert("Email no valido");return}
+    if(SOCIOS_AUTH.indexOf(em)>=0){alert("Este email ya esta en la lista");return}
+    SOCIOS_AUTH.push(em);
+    q("enuevo").value="";
+    saveEmails();
+  });
+
+  ecard.addEventListener("click",function(e){
+    var edel=e.target.closest("[data-edel]");
+    var eedit=e.target.closest("[data-eedit]");
+    if(edel){
+      var idx=parseInt(edel.dataset.edel);
+      var em=SOCIOS_AUTH[idx];
+      if(!confirm("Eliminar "+em+" de la lista?"))return;
+      SOCIOS_AUTH.splice(idx,1);
+      saveEmails();
+    }
+    if(eedit){
+      var idx2=parseInt(eedit.dataset.eedit);
+      var emActual=SOCIOS_AUTH[idx2];
+      var nuevo=prompt("Editar email:",emActual);
+      if(!nuevo||nuevo.trim()===emActual)return;
+      nuevo=nuevo.trim().toLowerCase();
+      if(nuevo.indexOf("@")<0){alert("Email no valido");return}
+      if(SOCIOS_AUTH.indexOf(nuevo)>=0){alert("Este email ya existe");return}
+      SOCIOS_AUTH[idx2]=nuevo;
+      saveEmails();
+    }
+  });
+
   q("gbenv").addEventListener("click",function(){
     var cid=q("gcatsel").value;
     var nom=q("gnom").value.trim();
