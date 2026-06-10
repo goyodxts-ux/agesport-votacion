@@ -517,6 +517,30 @@ function showAdm(){
     });
     h+='</div>';
   }
+  // ── Gestión de candidaturas ──
+  h+='<div class="card"><div class="ct" style="font-size:16px">Gestion de candidaturas</div>'+
+    '<div class="cs">Aniade o elimina candidatos en cualquier categoria. Los cambios son inmediatos en la votacion.</div>'+
+    '<div style="margin-bottom:14px">'+
+    '<label class="lbl">Categoria</label>'+
+    '<select class="inp" id="acatsel" style="margin-bottom:10px">'+
+    '<option value="">-- Selecciona categoria --</option>'+
+    CATS.map(function(c){return '<option value="'+c.id+'">'+nc(c.id)+'. '+c.n+'</option>'}).join("")+
+    '</select>'+
+    '<div id="acandlist" style="margin-bottom:12px"></div>'+
+    '<div id="aaddform" style="display:none">'+
+    '<div class="g2" style="margin-bottom:8px">'+
+    '<div><label class="lbl">Nombre *</label><input class="inp" id="anom" placeholder="Nombre del candidato"></div>'+
+    '<div><label class="lbl">Municipio</label><input class="inp" id="amun" placeholder="Municipio"></div>'+
+    '</div>'+
+    '<div style="margin-bottom:8px"><label class="lbl">Argumentario (opcional)</label>'+
+    '<textarea class="ta" id="aarg" maxlength="600" placeholder="Motivos por los que se propone..." style="min-height:70px"></textarea></div>'+
+    '<div style="display:flex;gap:8px">'+
+    '<button class="btn bp bsm" id="aenvbtn">+ Añadir candidato</button>'+
+    '<button class="btn bs bsm" id="acanbtn">Cancelar</button>'+
+    '</div></div>'+
+    '<button class="btn ba bsm" id="aopenbtn" style="margin-top:8px;display:none">+ Añadir nuevo candidato</button>'+
+    '</div></div>';
+
   if(socios.length>0){
     h+='<div class="card"><div class="ct" style="font-size:16px">Socios votantes ('+socios.length+')</div>'+
       '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:12px">'+
@@ -549,10 +573,113 @@ function showAdm(){
     if(!confirm("Reiniciar lista de socios?"))return;
     set("socios",{}).then(function(){socios=[];showAdm()});
   });
+  // Selector de categoria para gestión de candidaturas
+  var acatsel=q("acatsel");
+  if(acatsel){
+    acatsel.addEventListener("change",function(){
+      var cid=this.value;
+      var listDiv=q("acandlist");
+      var aopenbtn=q("aopenbtn");
+      var aaddform=q("aaddform");
+      if(!listDiv)return;
+      if(!cid){listDiv.innerHTML="";if(aopenbtn)aopenbtn.style.display="none";return}
+      var cat=CATS.find(function(c){return c.id===cid});
+      if(!cat){return}
+      // Mostrar candidatos actuales con botón de eliminar
+      var ch='<div style="margin-bottom:8px;font-size:12px;font-weight:600;color:#757575;text-transform:uppercase;letter-spacing:.05em">Candidatos actuales</div>';
+      if(cat.cands.length===0){
+        ch+='<div style="font-size:13px;color:#757575;font-style:italic;margin-bottom:8px">Sin candidatos en esta categoria</div>';
+      } else {
+        cat.cands.forEach(function(c){
+          ch+='<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;background:#F5F5F5;border-radius:7px;margin-bottom:6px">'+
+            '<div>'+
+            '<div style="font-weight:600;font-size:13px">'+c.n+(c.propuesta?' <span style="background:#FFF3E0;color:#BF360C;border-radius:10px;padding:1px 6px;font-size:10px">Socio</span>':'')+'</div>'+
+            '<div style="font-size:11px;color:#757575">'+c.m+'</div>'+
+            '</div>'+
+            '<button class="btn bd bsm" data-delcand="'+c.n+'" data-delcat="'+cid+'">Eliminar</button>'+
+            '</div>';
+        });
+      }
+      listDiv.innerHTML=ch;
+      if(aopenbtn)aopenbtn.style.display="inline-flex";
+      if(aaddform)aaddform.style.display="none";
+    });
+  }
+
+  // Abrir/cerrar form añadir candidato
+  var aopenbtn=q("aopenbtn");
+  if(aopenbtn){
+    aopenbtn.addEventListener("click",function(){
+      var f=q("aaddform");
+      if(f){f.style.display="block";this.style.display="none";}
+    });
+  }
+  var acanbtn=q("acanbtn");
+  if(acanbtn){
+    acanbtn.addEventListener("click",function(){
+      var f=q("aaddform");var ob=q("aopenbtn");
+      if(f)f.style.display="none";
+      if(ob)ob.style.display="inline-flex";
+      if(q("anom"))q("anom").value="";
+      if(q("amun"))q("amun").value="";
+      if(q("aarg"))q("aarg").value="";
+    });
+  }
+
+  // Añadir candidato desde admin
+  var aenvbtn=q("aenvbtn");
+  if(aenvbtn){
+    aenvbtn.addEventListener("click",function(){
+      var cid=q("acatsel")?q("acatsel").value:"";
+      var nom=q("anom")?q("anom").value.trim():"";
+      var mun=q("amun")?q("amun").value.trim():"";
+      var arg=q("aarg")?q("aarg").value.trim():"";
+      if(!cid){alert("Selecciona una categoria");return}
+      if(!nom||nom.length<2){alert("Escribe el nombre del candidato");return}
+      var cat=CATS.find(function(c){return c.id===cid});
+      if(!cat)return;
+      var existe=cat.cands.find(function(c){return c.n===nom});
+      if(existe){alert("Este candidato ya existe en la categoria");return}
+      cat.cands.push({n:nom,m:mun||"s/d",a:arg,propuesta:false});
+      // Guardar en Firebase como propuesta aprobada
+      var nv={id:"adm"+Date.now(),catId:cid,nombre:nom,municipio:mun||"s/d",argumento:arg,socio:"Administrador",fecha:new Date().toLocaleString("es-ES"),aprobada:true};
+      push("propuestas",nv).then(function(){
+        propuestas.push(nv);
+        // Actualizar lista visual
+        q("acatsel").dispatchEvent(new Event("change"));
+        if(q("anom"))q("anom").value="";
+        if(q("amun"))q("amun").value="";
+        if(q("aarg"))q("aarg").value="";
+        var f=q("aaddform");var ob=q("aopenbtn");
+        if(f)f.style.display="none";
+        if(ob)ob.style.display="inline-flex";
+      });
+    });
+  }
+
   q("main").addEventListener("click",function(e){
     var apr=e.target.closest("[data-apr]");
     var rec=e.target.closest("[data-rec]");
     var del=e.target.closest("[data-del]");
+    var delcand=e.target.closest("[data-delcand]");
+    if(delcand){
+      var cn=delcand.dataset.delcand;
+      var cid=delcand.dataset.delcat;
+      if(!confirm("Eliminar a "+cn+" de esta categoria?"))return;
+      var cat=CATS.find(function(c){return c.id===cid});
+      if(cat)cat.cands=cat.cands.filter(function(c){return c.n!==cn});
+      // Si es propuesta, eliminarla de Firebase
+      get("propuestas",function(raw){
+        if(!raw)return;
+        var key=Object.keys(raw).find(function(k){return raw[k].nombre===cn&&raw[k].catId===cid});
+        if(key)db.ref("propuestas/"+key).remove().then(function(){
+          propuestas=propuestas.filter(function(p){return!(p.nombre===cn&&p.catId===cid)});
+        });
+      });
+      // Actualizar lista visual
+      if(q("acatsel"))q("acatsel").dispatchEvent(new Event("change"));
+      return;
+    }
     if(apr){
       var pid=apr.dataset.apr;
       get("propuestas",function(raw){
