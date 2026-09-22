@@ -712,14 +712,15 @@ function showVot(){
   var footer=document.createElement("div");
   footer.className="card";
   footer.style.cssText="padding:14px 18px";
+  var yaVotoCheck=socios.find(function(s){return s.email===U.eml});
   var benv=document.createElement("button");
   benv.className="btn bp";
-  benv.disabled=vot===0;
-  benv.textContent="Enviar votos ("+vot+")";
-  benv.addEventListener("click",doEnviar);
+  benv.disabled=vot===0||!!yaVotoCheck;
+  benv.textContent=yaVotoCheck?"Ya has emitido tu voto":"Enviar votos ("+vot+")";
+  if(!yaVotoCheck) benv.addEventListener("click",doEnviar);
   var txt=document.createElement("span");
   txt.style.cssText="color:#757575;font-size:12px";
-  txt.textContent=vot===0?"Selecciona al menos una candidatura":vot<tot?"Faltan "+(tot-vot)+" categorias":"Todas votadas!";
+  txt.textContent=yaVotoCheck?"Tu voto ya fue registrado correctamente":vot===0?"Selecciona al menos una candidatura":vot<tot?"Faltan "+(tot-vot)+" categorias":"Todas votadas!";
   footer.style.display="flex";
   footer.style.justifyContent="space-between";
   footer.style.alignItems="center";
@@ -734,6 +735,9 @@ function showVot(){
 }
 
 function doEnviar(){
+  // Doble comprobacion: evitar voto duplicado aunque sea admin
+  var yaVoto=socios.find(function(s){return s.email===U.eml});
+  if(yaVoto){alert("Este email ya ha emitido su voto anteriormente.");return}
   var nv=JSON.parse(JSON.stringify(votos));
   var votosEmitidos=0;var abstenciones=0;
   Object.keys(sel).forEach(function(cid){
