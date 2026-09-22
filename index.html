@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Premios Agesport Andalucia 2025</title>
+<title>Premios AGESPORT Andalucía 2025</title>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <style>
@@ -373,68 +373,69 @@ var db=firebase.database();
 
 var CATS=[
   {id:"c22",num:"1",n:"Premio al Evento Deportivo",cands:[
-    {n:"Gran Premio de Espana de MotoGP - Jerez 2025",m:"Jerez de la Frontera (Cadiz)",a:"Uno de los eventos deportivos de mayor impacto internacional del calendario mundial. En 2025 alcanzo 224.420 espectadores, situandose entre los tres Grandes Premios con mayor afluencia del motociclismo. Genera un impacto economico directo superior a 17,3 millones de euros y se retransmite en mas de 200 paises.",p:false},
-    {n:"IV Meeting Internacional Ciudad de Malaga",m:"Malaga",a:"Incorporado al circuito World Athletics Continental Tour - Challenger en 2025. Reunio mas de 500 atletas de 59 paises de los cinco continentes y mas de 120 participantes en categorias de inclusion y promocion. Organizado por el Club Atletismo Malaga con apoyo de administraciones publicas.",p:false},
-    {n:"Carrera Nocturna del Guadalquivir KH7",m:"Sevilla",a:"El evento deportivo popular mas multitudinario del sur de Europa. Su ultima edicion congrego a mas de 22.000 corredores en el Paseo de las Delicias, en el Top 5 de las carreras mas populosas de Espana. Organizada por el IMD de Sevilla, fusiona el deporte de elite con el familiar.",p:false},
+    {n:"Gran Premio de España de MotoGP - Jerez 2025",m:"Jerez de la Frontera (Cádiz)",a:"Uno de los eventos deportivos de mayor impacto internacional del calendario mundial. En 2025 alcanzo 224.420 espectadores, situandose entre los tres Grandes Premios con mayor afluencia del motociclismo. Genera un impacto economico directo superior a 17,3 millones de euros y se retransmite en mas de 200 paises.",p:false},
+    {n:"IV Meeting Internacional Ciudad de Málaga",m:"Málaga",a:"Incorporado al circuito World Athletics Continental Tour - Challenger en 2025. Reunió más de 500 atletas de 59 países de los cinco continentes y más de 120 participantes en categorías de inclusión y promoción. Organizado por el Club Atletismo Málaga con apoyo de administraciones públicas.",p:false},
+    {n:"Carrera Nocturna del Guadalquivir KH7",m:"Sevilla",a:"El evento deportivo popular mas multitudinario del sur de Europa. Su ultima edicion congrego a mas de 22.000 corredores en el Paseo de las Delicias, en el Top 5 de las carreras mas populosas de España. Organizada por el IMD de Sevilla, fusiona el deporte de elite con el familiar.",p:false},
   ]},
-  {id:"c26",num:"2",n:"Premio a la Comunicacion en el Deporte",cands:[
-    {n:"Fernando Soria Dorado",m:"Granada",a:"Periodista deportivo con casi medio siglo de trayectoria, iniciada en el diario Ideal de Granada. Creador de Munideporte, web de referencia del deporte municipal, y la revista Deportistas. Impulsor del proyecto Espana se Mueve. Dirige Al Limite en Radio Marca, el programa mas veterano de la radio deportiva.",p:false},
+  {id:"c26",num:"2",n:"Premio a la Comunicación en el Deporte",cands:[
+    {n:"Fernando Soria Dorado",m:"Granada",a:"Periodista deportivo con casi medio siglo de trayectoria, iniciada en el diario Ideal de Granada. Creador de Munideporte, web de referencia del deporte municipal, y la revista Deportistas. Impulsor del proyecto España se Mueve. Dirige Al Limite en Radio Marca, el programa mas veterano de la radio deportiva.",p:false},
     {n:"Rocio Ruiz-Berdejo",m:"Sevilla",a:"Responsable de marketing de las secciones deportivas del Real Betis Balompie, incluyendo el futbol femenino. Coordinadora de Forever Green, plataforma de sostenibilidad ambiental del club betico referente mundial. Docente experta en la European Sport Business School (ESBS).",p:false},
-    {n:"Ismael Medina",m:"Andalucia",a:"Periodista deportivo andaluz con mas de 35 anios de experiencia, una de las voces mas reconocidas en narracion de futbol en Espana. Habitual en transmisiones de Movistar Plus+, LaLiga TV y Gol Television. Colabora en Canal Sur Radio en el emblematico programa El Pelotazo.",p:false},
+    {n:"Ismael Medina",m:"Andalucía",a:"Periodista deportivo andaluz con mas de 35 años de experiencia, una de las voces mas reconocidas en narración de fútbol en España. Habitual en transmisiones de Movistar Plus+, LaLiga TV y Gol Television. Colabora en Canal Sur Radio en el emblemático programa El Pelotazo.",p:false},
   ]},
-  {id:"c29",num:"3",n:"Premio a la Creacion de Conocimiento en la Gestion del Deporte",cands:[
+  {id:"c29",num:"3",n:"Premio a la Creación de Conocimiento en la Gestión del Deporte",cands:[
     {n:"Tesis Doctoral SEAT - Analisis Sostenible de Eventos Deportivos",m:"Granada",a:"Tesis doctoral que crea SEAT (Sport Event Assessment Tool), herramienta integral para evaluar el impacto economico, social, educativo, deportivo, medioambiental y de legado de eventos deportivos. Validada en 6 eventos reales con mas de 4.000 encuestas y 5 articulos cientificos publicados.",p:false},
-    {n:"PLIED La Linea de la Concepcion - Hacer Ciudad desde el Deporte",m:"La Linea de la Concepcion (Cadiz)",a:"Metodologia basada en Sistemas de Informacion Geografica para planificar instalaciones deportivas segun el acceso real de la poblacion. Aplicada a la ciudad espanola con menor esperanza de vida, identifica zonas desatendidas y orienta la inversion hacia donde mas impacto genera.",p:false},
-    {n:"Jose Castro Pinero - Investigacion en Actividad Fisica y Salud",m:"Huelva",a:"Referente nacional e internacional en investigacion sobre actividad fisica, condicion fisica y salud. Lider de un consolidado grupo de investigacion que ha generado herramientas, metodologias y evidencias cientificas aplicadas a la gestion del deporte, la promocion de estilos de vida activos y las politicas publicas.",p:false},
+    {n:"PLIED La Línea de la Concepción - Hacer Ciudad desde el Deporte",m:"La Línea de la Concepción (Cádiz)",a:"Metodologia basada en Sistemas de Informacion Geografica para planificar instalaciones deportivas segun el acceso real de la poblacion. Aplicada a la ciudad espanola con menor esperanza de vida, identifica zonas desatendidas y orienta la inversion hacia donde mas impacto genera.",p:false},
+    {n:"José Castro Piñero - Investigación en Actividad Física y Salud",m:"Huelva",a:"Referente nacional e internacional en investigación sobre actividad física, condición física y salud. Líder de un consolidado grupo de investigación que ha generado herramientas, metodologías y evidencias científicas aplicadas a la gestión del deporte, la promoción de estilos de vida activos y las políticas públicas.",p:false},
   ]},
   {id:"c25",num:"4",n:"Premio a la Entidad Deportiva del Tercer Sector",cands:[
-    {n:"Superbasket Academia de Baloncesto 675",m:"Almeria",a:"Referente en deporte adaptado e inclusivo en Andalucia. Con mas de 110 deportistas en baloncesto adaptado y 70 en talleres de habilidades sociales, abrio el Centro Deportivo Inclusivo El Oasis en septiembre de 2025. Ganador del Premio San Sebastian de Algarrobo y el Premio Beiman-Divina Deporte, Salud y Valores.",p:false},
+    {n:"Superbasket Academia de Baloncesto 675",m:"Almería",a:"Referente en deporte adaptado e inclusivo en Andalucía. Con mas de 110 deportistas en baloncesto adaptado y 70 en talleres de habilidades sociales, abrio el Centro Deportivo Inclusivo El Oasis en septiembre de 2025. Ganador del Premio San Sebastian de Algarrobo y el Premio Beiman-Divina Deporte, Salud y Valores.",p:false},
     {n:"Darsena Deportiva Sevilla",m:"Sevilla",a:"Entidad sin animo de lucro fundada en 2015 para promocionar la actividad deportiva en el rio Guadalquivir. Fomenta el deporte para todos, la puesta en valor del patrimonio deportivo de la darsena fluvial de Sevilla y las actividades inclusivas para personas con discapacidad.",p:false},
-    {n:"C.D. Balans",m:"Albolote (Granada)",a:"Primer centro de gimnasia acrobatica de Andalucia con instalaciones propias. Acoge unos 180 deportistas desde los 3 anios en Albolote, Granada, Las Gabias, Maracena y Peligros. 17 podios en el Campeonato de Espana de Parkour 2025 y organizador del Torneo Jico Diputacion de Granada con 587 gimnastas.",p:false},
+    {n:"C.D. Balans",m:"Albolote (Granada)",a:"Primer centro de gimnasia acrobática de Andalucía con instalaciones propias. Acoge unos 180 deportistas desde los 3 años en Albolote, Granada, Las Gabias, Maracena y Peligros. 17 podios en el Campeonato de España de Parkour 2025 y organizador del Torneo Jico Diputación de Granada con 587 gimnastas.",p:false},
   ]},
   {id:"c212",num:"5",n:"Premio Deporte para Siempre",cands:[
-    {n:"Jose Carlos Tejada Cabornero",m:"Almeria",a:"Presidente del Club de Deporte Adaptado Almeria (DEPOADAP) desde 2015. Convirtio el acompanamiento a su hijo Carlos, nadador con discapacidad intelectual y multiple medalla nacional, en un proyecto colectivo que ofrece oportunidades deportivas a cientos de personas con discapacidad de todas las edades.",p:false},
-    {n:"OWA Formacion y Entrenamiento - Dra. Lidia Romero",m:"Almeria",a:"Empresa centrada en el empoderamiento femenino a traves del entrenamiento fisico durante el embarazo y post-parto. La Dra. Lidia Romero, pionera y referente del sector desde 2012, ha desarrollado OWApp y programas especializados para que las mujeres embarazadas entrenen de forma segura y basada en evidencia.",p:false},
-    {n:"Miriam del Rocio Viruez Martin",m:"Andalucia",a:"Propuesta por la Federacion Andaluza de Deportes de Personas con Paralisis Cerebral. Trayectoria ejemplar de compromiso continuado con la promocion, desarrollo e inclusion de las personas con paralisis cerebral en el ambito deportivo, garantizando su acceso efectivo al deporte como herramienta de mejora de la calidad de vida.",p:false},
+    {n:"José Carlos Tejada Cabornero",m:"Almería",a:"Presidente del Club de Deporte Adaptado Almería (DEPOADAP) desde 2015. Convirtio el acompanamiento a su hijo Carlos, nadador con discapacidad intelectual y multiple medalla nacional, en un proyecto colectivo que ofrece oportunidades deportivas a cientos de personas con discapacidad de todas las edades.",p:false},
+    {n:"OWA Formacion y Entrenamiento - Dra. Lidia Romero",m:"Almería",a:"Empresa centrada en el empoderamiento femenino a traves del entrenamiento fisico durante el embarazo y post-parto. La Dra. Lidia Romero, pionera y referente del sector desde 2012, ha desarrollado OWApp y programas especializados para que las mujeres embarazadas entrenen de forma segura y basada en evidencia.",p:false},
+    {n:"Miriam del Rocío Viruez Martín",m:"Andalucía",a:"Propuesta por la Federación Andaluza de Deportes de Personas con Parálisis Cerebral. Trayectoria ejemplar de compromiso continuado con la promoción, desarrollo e inclusión de las personas con parálisis cerebral en el ámbito deportivo, garantizando su acceso efectivo al deporte como herramienta de mejora de la calidad de vida.",p:false},
   ]},
-  {id:"c210",num:"6",n:"Premio a la Gestion Deportiva Publica Municipal",cands:[
-    {n:"Ayuntamiento de Cabra",m:"Cabra (Cordoba)",a:"Modelo de gestion deportiva innovador que supera anualmente los 200.000 usos entre instalaciones, programas y actividades. Inversion superior a 2,45 millones de euros en modernizacion integral 2021-2026. Administracion deportiva completamente digitalizada. Referente andaluz en gestion deportiva publica municipal.",p:false},
+  {id:"c210",num:"6",n:"Premio a la Gestión Deportiva Pública Municipal",cands:[
+    {n:"Ayuntamiento de Cabra",m:"Cabra (Córdoba)",a:"Modelo de gestión deportiva innovador que supera anualmente los 200.000 usos entre instalaciones, programas y actividades. Inversión superior a 2,45 millones de euros en modernización integral 2021-2026. Administración deportiva completamente digitalizada. Referente andaluz en gestión deportiva pública municipal.",p:false},
     {n:"Patronato Municipal de Deportes de La Rinconada",m:"La Rinconada (Sevilla)",a:"Referente nacional galardonado por el Consejo Superior de Deportes. Modelo integral con extenso catalogo de escuelas deportivas, apoyo al tejido asociativo y plan de infraestructuras de vanguardia incluyendo el Centro de Deportes de Raqueta, pabellones y piscina cubierta.",p:false},
-    {n:"Diputacion Provincial de Cadiz - Plan PAMIED",m:"Cadiz",a:"Modelo integral de apoyo al deporte municipal basado en la cooperacion con los ayuntamientos. El Plan PAMIED, dotado con 1,5 millones de euros, financia 47 actuaciones en municipios de la provincia para modernizar, mejorar la accesibilidad y sostenibilidad de instalaciones deportivas.",p:false},
+    {n:"Diputación Provincial de Cádiz - Plan PAMIED",m:"Cádiz",a:"Modelo integral de apoyo al deporte municipal basado en la cooperacion con los ayuntamientos. El Plan PAMIED, dotado con 1,5 millones de euros, financia 47 actuaciones en municipios de la provincia para modernizar, mejorar la accesibilidad y sostenibilidad de instalaciones deportivas.",p:false},
   ]},
   {id:"c23",num:"7",n:"Premio a la Industria del Deporte",cands:[
     {n:"HSN - Health Supplement Nutrition",m:"Escuzar (Granada)",a:"Empresa espanola de origen granadino, lider en nutricion deportiva y dietetica natural en el canal online. Fundada en 2007, supera los 12.000 m2 de instalaciones con fabrica propia en Granada y cerca de 200 empleos. Desarrolla mas de 2.300 referencias distribuidas por toda Europa e incluso Oriente Medio.",p:false},
-    {n:"UNEI - Inclusion Laboral en Gestion Deportiva",m:"Cadiz",a:"Referente de la economia social en Andalucia que traslada su modelo de inclusion laboral al ambito de la gestion deportiva. Con un crecimiento del 23% en 2025, mas de 2.000 personas contratadas y una plantilla integrada en un 87% por personas con discapacidad.",p:false},
-    {n:"BeSoccer",m:"Malaga",a:"Empresa malagueana con la mayor base de datos de futbol del mundo. Modelo hibrido B2C y B2B que suministra API de datos en tiempo real a medios, agencias de apuestas y multinacionales. A traves de BeSoccer Pro ofrece soporte analitico avanzado a clubes de elite de todo el planeta.",p:false},
+    {n:"UNEI - Inclusión Laboral en Gestión Deportiva",m:"Cádiz",a:"Referente de la economía social en Andalucia que traslada su modelo de inclusion laboral al ámbito de la gestión deportiva. Con un crecimiento del 23% en 2025, mas de 2.000 personas contratadas y una plantilla integrada en un 87% por personas con discapacidad.",p:false},
+    {n:"BeSoccer",m:"Málaga",a:"Empresa malagueana con la mayor base de datos de futbol del mundo. Modelo hibrido B2C y B2B que suministra API de datos en tiempo real a medios, agencias de apuestas y multinacionales. A traves de BeSoccer Pro ofrece soporte analitico avanzado a clubes de elite de todo el planeta.",p:false},
   ]},
   {id:"c28",num:"8",n:"Premio a la Infraestructura Deportiva",cands:[
-    {n:"Higueron Sport Club",m:"Costa del Sol (Malaga)",a:"Infraestructura deportiva de referencia internacional de mas de 12.000 m2. Incluye gimnasio inteligente con Technogym, piscina climatizada de 25 m, 9 pistas de padel panoramicas, academia de tenis de alto rendimiento y el centro de baloncesto The Embassy fundado por Berni Rodriguez y Jose Manuel Calderon.",p:false},
-    {n:"Plan Provincial de Inversiones PIDE 2025",m:"Provincia de Granada",a:"El plan de infraestructuras deportivas mas ambicioso de la historia de la Diputacion de Granada. Con 14,5 millones de euros beneficia a 57 municipios: 19 pistas polideportivas, 8 campos de futbol, 8 pabellones, 9 pistas de padel, 9 piscinas, 4 gimnasios y muchas mas instalaciones.",p:false},
-    {n:"CEIP Capitan General Julio Coloma Gallegos",m:"Andalucia",a:"Instalaciones deportivas escolares que destacan por su diseno funcional y adecuada adaptacion para modalidades deportivas de personas con paralisis cerebral, dano cerebral adquirido y discapacidad. Usadas por la Federacion Andaluza de Deportes de Personas con Paralisis Cerebral.",p:false},
+    {n:"Higueron Sport Club",m:"Costa del Sol (Málaga)",a:"Infraestructura deportiva de referencia internacional de mas de 12.000 m2. Incluye gimnasio inteligente con Technogym, piscina climatizada de 25 m, 9 pistas de padel panoramicas, academia de tenis de alto rendimiento y el centro de baloncesto The Embassy fundado por Berni Rodriguez y Jose Manuel Calderon.",p:false},
+    {n:"Plan Provincial de Inversiones PIDE 2025",m:"Provincia de Granada",a:"El plan de infraestructuras deportivas mas ambicioso de la historia de la Diputación de Granada. Con 14,5 millones de euros beneficia a 57 municipios: 19 pistas polideportivas, 8 campos de futbol, 8 pabellones, 9 pistas de padel, 9 piscinas, 4 gimnasios y muchas mas instalaciones.",p:false},
+    {n:"CEIP Capitan General Julio Coloma Gallegos",m:"Andalucía",a:"Instalaciones deportivas escolares que destacan por su diseño funcional y adecuada adaptación para modalidades deportivas de personas con parálisis cerebral, daño cerebral adquirido y discapacidad. Usadas por la Federación Andaluza de Deportes de Personas con Parálisis Cerebral.",p:false},
   ]},
   {id:"c27",num:"9",n:"Premio Mujer y Deporte",cands:[
-    {n:"Club Balonmano Costa del Sol",m:"Malaga",a:"Club fundado en 1994, consolidado en la maxima categoria nacional con titulos de Liga, Copa de la Reina, Supercopa de Espana y competicion europea. Referente del deporte femenino andaluz con mas de tres decadas formando deportistas y generando identidad colectiva para ninas y jovenes de la provincia.",p:false},
-    {n:"CD Femenino Paquillo Moreno",m:"Montilla (Cordoba)",a:"Club pionero del futbol femenino en la Campina Sur cordobesa, en su 15 aniversario (2011-2026). De 20 ninas fundadoras a 90 jugadoras actuales en equipos federados. Ha formado jugadoras que han debutado en Primera Division. Premio Cordoba en Igualdad de la Diputacion de Cordoba.",p:false},
+    {n:"Club Balonmano Costa del Sol",m:"Málaga",a:"Club fundado en 1994, consolidado en la máxima categoría nacional con títulos de Liga, Copa de la Reina, Supercopa de España y competición europea. Referente del deporte femenino andaluz con mas de tres décadas formando deportistas y generando identidad colectiva para niñas y jóvenes de la provincia.",p:false},
+    {n:"CD Femenino Paquillo Moreno",m:"Montilla (Córdoba)",a:"Club pionero del futbol femenino en la Campina Sur cordobesa, en su 15 aniversario (2011-2026). De 20 ninas fundadoras a 90 jugadoras actuales en equipos federados. Ha formado jugadoras que han debutado en Primera Division. Premio Córdoba en Igualdad de la Diputación de Córdoba.",p:false},
     {n:"Reyes Bellver Alonso",m:"Sevilla",a:"Directora de Futbol Femenino de la RFEF. Abogada de referencia mundial (Who's Who Legal) y Arbitro del Tribunal Arbitral del Deporte (TAS/CAS). Mente juridica clave en reformas historicas sobre embarazo y maternidad de la FIFA. Fundadora de la plataforma internacional Leadership Woman Football.",p:false},
   ]},
   {id:"c24",num:"10",n:"Premio a Patrocinio y Mecenazgo en el Deporte",cands:[
-    {n:"Fundacion Rincon",m:"Malaga",a:"Uno de los ejemplos mas solidos y prolongados de patrocinio y mecenazgo deportivo en Malaga. Apoyo continuado a clubes, deportistas, eventos y proyectos deportivos de diversa naturaleza. En 2025 celebro la II Gala SuperArte para visibilizar los valores del deporte, la cultura y la solidaridad.",p:false},
-    {n:"Clinicas Beiman",m:"Jerez de la Frontera (Cadiz)",a:"Empresa andaluza nacida en Jerez que ha convertido el apoyo al deporte en eje fundamental de su modelo empresarial. Presta asistencia sanitaria a numerosas federaciones y clubes, colabora en la organizacion de competiciones. Ha experimentado notable expansion por toda Andalucia.",p:false},
-    {n:"DOC Servicios",m:"Sevilla",a:"Con raices en el ambito deportivo desde su constitucion como DOC 2001 S.L., lleva mas de 25 anos vinculada al deporte desde sus origenes. Alta y silenciada contribucion al deporte base, de elite y de inclusion social a traves del patrocinio deportivo en Sevilla y Andalucia.",p:false},
+    {n:"Fundacion Rincon",m:"Málaga",a:"Uno de los ejemplos mas solidos y prolongados de patrocinio y mecenazgo deportivo en Málaga. Apoyo continuado a clubes, deportistas, eventos y proyectos deportivos de diversa naturaleza. En 2025 celebro la II Gala SuperArte para visibilizar los valores del deporte, la cultura y la solidaridad.",p:false},
+    {n:"Clínicas Beiman",m:"Jerez de la Frontera (Cádiz)",a:"Empresa andaluza nacida en Jerez que ha convertido el apoyo al deporte en eje fundamental de su modelo empresarial. Presta asistencia sanitaria a numerosas federaciones y clubes, colabora en la organización de competiciones. Ha experimentado notable expansión por toda Andalucía.",p:false},
+    {n:"DOC Servicios",m:"Sevilla",a:"Con raíces en el ámbito deportivo desde su constitución como DOC 2001 S.L., lleva mas de 25 años vinculada al deporte desde sus orígenes. Alta y silenciada contribución al deporte base, de élite y de inclusión social a través del patrocinio deportivo en Sevilla y Andalucia.",p:false},
   ]},
   {id:"c21",num:"11",n:"Premio Salvador Jimenez - Gestor/a del Deporte",cands:[
-    {n:"Javier Luna Quesada",m:"Granada",a:"Funcionario de carrera y Jefe de Servicio de la Concejalia de Deportes del Ayuntamiento de Granada. Ganador del primer premio FAMP a la Gobernanza Local 2024 en la categoria de busqueda de la excelencia en clave local. Referente en gestion tecnico-juridica del deporte municipal y docente universitario.",p:false},
+    {n:"Javier Luna Quesada",m:"Granada",a:"Funcionario de carrera y Jefe de Servicio de la Concejalía de Deportes del Ayuntamiento de Granada. Ganador del primer premio FAMP a la Gobernanza Local 2024 en la categoría de búsqueda de la excelencia en clave local. Referente en gestión técnico-jurídica del deporte municipal y docente universitario.",p:false},
     {n:"Reyes Bellver Alonso",m:"Sevilla",a:"Directora de Futbol Femenino de la RFEF. Abogada de referencia mundial (Who's Who Legal) y Arbitro del TAS/CAS. Mente juridica clave en reformas historicas sobre embarazo y maternidad de la FIFA. Fundadora de la plataforma internacional Leadership Woman Football.",p:false},
-    {n:"Antonio Cazorla",m:"Cabra (Cordoba)",a:"Gerente del Patronato Municipal de Deportes de Cabra. Ha consolidado un modelo deportivo municipal cercano, eficiente e inclusivo. Bajo su gestion el deporte se ha impulsado como herramienta de salud, educacion y cohesion ciudadana, con mas de 200.000 usos anuales.",p:false},
+    {n:"Antonio Cazorla",m:"Cabra (Córdoba)",a:"Gerente del Patronato Municipal de Deportes de Cabra. Ha consolidado un modelo deportivo municipal cercano, eficiente e inclusivo. Bajo su gestión el deporte se ha impulsado como herramienta de salud, educación y cohesión ciudadana, con mas de 200.000 usos anuales.",p:false},
   ]},
-  {id:"c211",num:"12",n:"Premio a la Sostenibilidad en la Gestion del Deporte",cands:[
-    {n:"Cetursa Sierra Nevada SA",m:"Monachil (Granada)",a:"Primera estacion de Espana en usar combustible 100% renovable en sus pisapistas y lider mundial en maquinas de pisado sostenibles. Sello de Huella Verde de la Camara de Comercio de Granada y Evento Deportivo Sostenible del Comite Olimpico Espanol. Objetivo: neutralidad de emisiones en 2050.",p:false},
-    {n:"Programa Malaga como te quiero",m:"Malaga",a:"Estrategia integral de transformacion ambiental del Ayuntamiento de Malaga. Establece criterios tecnicos y educativos para que eventos deportivos y carreras populares sean sostenibles. Convierte el deporte en herramienta de educacion ambiental masiva para miles de ciudadanos.",p:false},
-    {n:"Centro Nautico Alamillo",m:"Sevilla",a:"Proyecto de la Federacion Andaluza de Remo iniciado en 2025 en el Parque del Alamillo. Ofrece turismo activo (kayak, paddle surf, remo) con compromiso medioambiental y social. Concesionaria de una instalacion hasta 2038, siendo referente de turismo deportivo sostenible en Sevilla.",p:false},
+  {id:"c211",num:"12",n:"Premio a la Sostenibilidad en la Gestión del Deporte",cands:[
+    {n:"Cetursa Sierra Nevada SA",m:"Monachil (Granada)",a:"Primera estacion de España en usar combustible 100% renovable en sus pisapistas y lider mundial en maquinas de pisado sostenibles. Sello de Huella Verde de la Camara de Comercio de Granada y Evento Deportivo Sostenible del Comite Olimpico Espanol. Objetivo: neutralidad de emisiones en 2050.",p:false},
+    {n:"Programa Málaga como te quiero",m:"Málaga",a:"Estrategia integral de transformacion ambiental del Ayuntamiento de Málaga. Establece criterios tecnicos y educativos para que eventos deportivos y carreras populares sean sostenibles. Convierte el deporte en herramienta de educacion ambiental masiva para miles de ciudadanos.",p:false},
+    {n:"Centro Nautico Alamillo",m:"Sevilla",a:"Proyecto de la Federación Andaluza de Remo iniciado en 2025 en el Parque del Alamillo. Ofrece turismo activo (kayak, paddle surf, remo) con compromiso medioambiental y social. Concesionaria de una instalacion hasta 2038, siendo referente de turismo deportivo sostenible en Sevilla.",p:false},
   ]},
 ];
 
 var U=null,estado="abierta",votos={},socios=[],props=[],sel={};
+var fechaInicio="2026-09-22",fechaFin="2026-10-05";
 
 function q(id){return document.getElementById(id)}
 function sk(s){return s.replace(/[.#$\[\]]/g,"_")}
@@ -444,6 +445,7 @@ function fpush(p,v){return db.ref(p).push(v)}
 
 function init(){
   fget("estado",function(v){estado=v||"abierta"});
+  fget("fechas",function(v){if(v){fechaInicio=v.inicio||fechaInicio;fechaFin=v.fin||fechaFin;}});
   fget("votos",function(v){votos=v||{}});
   fget("socios",function(v){socios=v?Object.values(v):[]});
   fget("propuestas",function(v){
@@ -460,6 +462,7 @@ function init(){
     if(q("main")&&q("main").dataset.v==="res") showRes();
   });
   db.ref("estado").on("value",function(s){estado=s.val()||"abierta"});
+  db.ref("fechas").on("value",function(s){var v=s.val();if(v){fechaInicio=v.inicio||fechaInicio;fechaFin=v.fin||fechaFin;}});
   db.ref("socios").on("value",function(s){socios=s.val()?Object.values(s.val()):[]});
   setTimeout(showLogin,350);
 }
@@ -480,14 +483,14 @@ function showLogin(){
   q("root").innerHTML=
     '<div class="lw"><div class="lc">'+
     '<img src="'+LR+'" style="max-width:220px;width:100%;height:60px;object-fit:contain;display:block;margin:0 auto 16px">'+
-    '<div class="lt">Premios Agesport 2025</div>'+
+    '<div class="lt">Premios AGESPORT 2025</div>'+
     '<div class="lsu">Introduce tus datos para acceder.<br>Cada socio solo puede votar una vez.</div>'+
     '<div class="ler" id="lerr"></div>'+
     '<div class="lf"><label class="lbl">Nombre completo *</label><input class="inp" id="lnom" placeholder="Tu nombre y apellidos"></div>'+
     '<div class="lf"><label class="lbl">Email *</label><input class="inp" id="leml" type="email" placeholder="tucorreo@ejemplo.com"></div>'+
-    '<div class="apf" id="apfw"><label class="lbl">Contrasenia administrador</label><input class="inp" id="lpas" type="password" placeholder="Contrasenia"></div>'+
+    '<div class="apf" id="apfw"><label class="lbl">Contraseña administrador</label><input class="inp" id="lpas" type="password" placeholder="Contraseña"></div>'+
     '<div class="lav">Tu email se usa solo para evitar votos duplicados.</div>'+
-    '<button class="btn bp bf" id="lbtn">Acceder a la votacion</button>'+
+    '<button class="btn bp bf" id="lbtn">Acceder a la votación</button>'+
     '<img src="'+LB+'" style="width:100%;max-width:250px;margin-top:16px;opacity:.6">'+
     '</div></div>';
   q("leml").addEventListener("input",function(){
@@ -509,11 +512,11 @@ function doLogin(){
   if(eml===AE||isAdmEmail){
     var pas=q("lpas")?q("lpas").value:"";
     if(pas===AP){U={nom:nom,eml:eml,adm:true,vot:false};sel={};buildApp();return}
-    if(pas!==""){err.textContent="Contrasenia incorrecta";err.style.display="block";return}
+    if(pas!==""){err.textContent="Contraseña incorrecta";err.style.display="block";return}
   }
   // Verificar lista de socios autorizados
   if(SOCIOS_AUTH.indexOf(eml)<0){
-    err.textContent="Este email no esta autorizado para votar. Si crees que es un error contacta con el delegado provincial: granada@agesport.org";
+    err.textContent="Este email no está autorizado para votar. Si crees que es un error, contacta con el delegado provincial: granada@agesport.org";
     err.style.display="block";return;
   }
   var yv=socios.find(function(s){return s.email===eml});
@@ -529,7 +532,7 @@ function buildApp(){
     '<header class="hdr">'+
     '<div style="display:flex;align-items:center;gap:9px">'+
     '<img src="'+LR+'" style="max-width:180px;height:48px;object-fit:contain">'+
-    '<div><div class="hdr-t">Premios Agesport 2025</div></div>'+
+    '<div><div class="hdr-t">Premios AGESPORT 2025</div></div>'+
     '</div>'+
     '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'+
     '<div style="text-align:right">'+
@@ -587,6 +590,22 @@ function goTab(v){
 }
 
 // ── VOTAR ──
+
+function getCuentaAtras(){
+  var hoy=new Date();hoy.setHours(0,0,0,0);
+  var fin=new Date(fechaFin+"T00:00:00");fin.setHours(0,0,0,0);
+  var diff=Math.ceil((fin-hoy)/(1000*60*60*24));
+  return diff;
+}
+function getEstadoFechas(){
+  var hoy=new Date();hoy.setHours(0,0,0,0);
+  var ini=new Date(fechaInicio+"T00:00:00");ini.setHours(0,0,0,0);
+  var fin=new Date(fechaFin+"T00:00:00");fin.setHours(0,0,0,0);
+  if(hoy<ini) return "pendiente";
+  if(hoy>fin) return "finalizada";
+  return "activa";
+}
+
 function showVot(){
   var main=q("main");
   if(estado==="cerrada"){main.innerHTML='<div class="card"><div class="em"><div style="font-size:40px">&#128274;</div><div style="margin-top:8px;font-weight:600">Votacion cerrada</div></div></div>';return}
@@ -600,7 +619,9 @@ function showVot(){
   prog.innerHTML=
     '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">'+
     '<span style="font-weight:600;font-size:13px">Progreso: '+vot+' de '+tot+'</span>'+
-    '<span class="ep ea"><span class="dl"></span>Votacion abierta</span></div>'+
+    '<span class="ep ea"><span class="dl"></span>Votación abierta</span>'+
+    (function(){var d=getCuentaAtras();return d>0?'<span style="background:#E8F5E9;color:#1B5E20;border-radius:12px;padding:2px 10px;font-size:12px;font-weight:600;margin-left:6px">&#9200; '+d+' día'+(d===1?'':'s')+'</span>':'<span style="background:#FFEBEE;color:#C62828;border-radius:12px;padding:2px 10px;font-size:12px;font-weight:600;margin-left:6px">Último día</span>';})()+
+    '</div>'+
     '<div style="height:6px;background:#E8F5E9;border-radius:6px;overflow:hidden">'+
     '<div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,#1B5E20,#4CAF50);border-radius:6px;transition:width .4s"></div></div>';
   el.appendChild(prog);
@@ -693,7 +714,7 @@ function showVot(){
     if(s==="__abstencion__"){var dotAbs=document.createElement("div");dotAbs.className="vrd";radioAbs.appendChild(dotAbs)}
     var infoAbs=document.createElement("div");
     infoAbs.style.flex="1";
-    infoAbs.innerHTML='<div style="font-weight:500;font-size:13px;color:#757575">Me abstengo en esta categoria</div><div style="font-size:11px;color:#9e9e9e">No emito voto para este premio</div>';
+    infoAbs.innerHTML='<div style="font-weight:500;font-size:13px;color:#757575">Me abstengo en esta categoría</div><div style="font-size:11px;color:#9e9e9e">No emito voto para este premio</div>';
     topAbs.appendChild(radioAbs);
     topAbs.appendChild(infoAbs);
     voAbs.appendChild(topAbs);
@@ -720,7 +741,7 @@ function showVot(){
   if(!yaVotoCheck) benv.addEventListener("click",doEnviar);
   var txt=document.createElement("span");
   txt.style.cssText="color:#757575;font-size:12px";
-  txt.textContent=yaVotoCheck?"Tu voto ya fue registrado correctamente":vot===0?"Selecciona al menos una candidatura":vot<tot?"Faltan "+(tot-vot)+" categorias":"Todas votadas!";
+  txt.textContent=yaVotoCheck?"Tu voto ya fue registrado correctamente":vot===0?"Selecciona al menos una candidatura":vot<tot?"Faltan "+(tot-vot)+" categorías":"¡Todas votadas!";
   footer.style.display="flex";
   footer.style.justifyContent="space-between";
   footer.style.alignItems="center";
@@ -755,15 +776,15 @@ function doEnviar(){
     rebuildTabs("res");
     q("main").dataset.v="res";
     var main=q("main");
-    var absMsg=abstenciones>0?'<div style="color:#9e9e9e;font-size:12px;margin-bottom:6px">('+abstenciones+' categoria'+(abstenciones>1?'s':'')+' sin voto)</div>':'';
+    var absMsg=abstenciones>0?'<div style="color:#9e9e9e;font-size:12px;margin-bottom:6px">('+abstenciones+' categoría'+(abstenciones>1?'s':'')+' sin voto)</div>':'';
     main.innerHTML=
       '<div class="card" style="text-align:center;padding:44px 20px">'+
       '<div style="font-size:54px;margin-bottom:10px">&#127942;</div>'+
-      '<div style="font-family:Playfair Display,serif;font-size:22px;font-weight:700;color:#1B5E20;margin-bottom:8px">Gracias por tu participacion!</div>'+
+      '<div style="font-family:Playfair Display,serif;font-size:22px;font-weight:700;color:#1B5E20;margin-bottom:8px">¡Gracias por tu participación!</div>'+
       '<div style="color:#333;font-size:14px;margin-bottom:4px">Tu voto ha sido registrado correctamente.</div>'+
-      '<div style="color:#757575;font-size:13px;margin-bottom:4px">Has votado en <strong>'+votosEmitidos+'</strong> de las '+CATS.length+' categorias.</div>'+
+      '<div style="color:#757575;font-size:13px;margin-bottom:4px">Has votado en <strong>'+votosEmitidos+'</strong> de las '+CATS.length+' categorías.</div>'+
       absMsg+
-      '<div style="color:#757575;font-size:12px;margin-bottom:20px;line-height:1.6;max-width:420px;margin-left:auto;margin-right:auto">Tu participacion es fundamental para reconocer la excelencia en la gestion deportiva en Andalucia.<br>Muchas gracias en nombre de AGESPORT!</div>'+
+      '<div style="color:#757575;font-size:12px;margin-bottom:20px;line-height:1.6;max-width:420px;margin-left:auto;margin-right:auto">Tu participación es fundamental para reconocer la excelencia en la gestión deportiva en Andalucía.<br>¡Muchas gracias en nombre de AGESPORT!</div>'+
       '<button class="btn bp" id="bvr">Ver resultados en tiempo real</button></div>';
     q("bvr").addEventListener("click",function(){goTab("res")});
   }).catch(function(e){alert("Error: "+e.message)});
@@ -778,10 +799,10 @@ function showPro(){
   var card=document.createElement("div");
   card.className="card";
   card.innerHTML='<div class="ct">Proponer candidatura</div>'+
-    '<div class="cs">Selecciona la categoria, rellena el formulario y argumenta al menos 80 caracteres. El administrador revisara tu propuesta antes de incluirla en la votacion.</div>'+
+    '<div class="cs">Selecciona la categoria, rellena el formulario y argumenta al menos 80 caracteres. El administrador revisará tu propuesta antes de incluirla en la votación.</div>'+
     '<div class="lf"><label class="lbl">Categoria *</label>'+
     '<select class="inp sel" id="psel">'+
-    '<option value="">-- Selecciona una categoria --</option>'+
+    '<option value="">-- Selecciona una categoría --</option>'+
     CATS.map(function(c){return '<option value="'+c.id+'">'+c.num+'. '+c.n+'</option>'}).join("")+
     '</select></div>'+
     '<div id="pform" style="display:none">'+
@@ -830,7 +851,7 @@ function showPro(){
     var nom=q("pnom").value.trim();
     var mun=q("pmun").value.trim();
     var arg=q("parg").value.trim();
-    if(!cid){alert("Selecciona una categoria");return}
+    if(!cid){alert("Selecciona una categoría");return}
     if(!nom||nom.length<2){alert("Escribe el nombre del candidato");return}
     if(arg.length<80){alert("El argumento debe tener al menos 80 caracteres. Llevas "+arg.length+".");return}
     var nv={id:"p"+Date.now(),catId:cid,nombre:nom,municipio:mun||"s/d",argumento:arg,socio:U.nom,fecha:new Date().toLocaleString("es-ES"),aprobada:false};
@@ -921,10 +942,22 @@ function showAdm(){
     '<div class="sb"><div class="sn">'+tv+'</div><div class="sl">Votos totales</div></div>'+
     '<div class="sb"><div class="sn" style="color:'+(pend.length>0?"#E65100":"#1B5E20")+'">'+pend.length+'</div><div class="sl">Propuestas pendientes</div></div>'+
     '</div>'+
-    '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
-    '<button class="btn '+(estado==="abierta"?"bd":"bp")+'" id="btgest">'+(estado==="abierta"?"&#128274; Cerrar votacion":"&#128275; Abrir votacion")+'</button>'+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">'+
+    '<button class="btn '+(estado==="abierta"?"bd":"bp")+'" id="btgest">'+(estado==="abierta"?"&#128274; Cerrar votación":"&#128275; Abrir votación")+'</button>'+
     '<button class="btn bs" id="btrv">Reiniciar votos</button>'+
     '<button class="btn bs" id="btrs">Reiniciar socios</button>'+
+    '</div>'+
+    '<div style="background:#F1F8E9;border:1px solid #C5E1A5;border-radius:8px;padding:12px 14px">'+
+    '<div style="font-weight:600;font-size:13px;color:#1B5E20;margin-bottom:10px">&#128197; Período de votación</div>'+
+    '<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">'+
+    '<div><label style="font-size:11px;font-weight:600;color:#555;display:block;margin-bottom:3px">Fecha inicio</label>'+
+    '<input type="date" id="fadmin_ini" class="inp" style="width:150px;font-size:13px;padding:5px 8px" value="'+fechaInicio+'"></div>'+
+    '<div><label style="font-size:11px;font-weight:600;color:#555;display:block;margin-bottom:3px">Fecha fin</label>'+
+    '<input type="date" id="fadmin_fin" class="inp" style="width:150px;font-size:13px;padding:5px 8px" value="'+fechaFin+'"></div>'+
+    '<button class="btn bp bsm" id="btfechas">Guardar fechas</button>'+
+    '<span id="fechasmsg" style="font-size:12px;color:#2e7d32;line-height:28px"></span>'+
+    '</div>'+
+    '<div style="margin-top:8px;font-size:12px;color:#555">Días restantes: <strong>'+(function(){var d=getCuentaAtras();return d>0?d+' día'+(d===1?'':'s'):'¡Hoy es el último día!';}())+'</strong></div>'+
     '</div>';
   el.appendChild(scard);
   q("btgest",scard);
@@ -958,11 +991,11 @@ function showAdm(){
   // Gestión de candidaturas
   var gcard=document.createElement("div");
   gcard.className="card";
-  gcard.innerHTML='<div class="ct" style="font-size:16px">Gestion de candidaturas</div>'+
-    '<div class="cs">Selecciona una categoria para ver, aniadir o eliminar candidatos.</div>'+
+  gcard.innerHTML='<div class="ct" style="font-size:16px">Gestión de candidaturas</div>'+
+    '<div class="cs">Selecciona una categoría para ver, añadir o eliminar candidatos.</div>'+
     '<div class="lf"><label class="lbl">Categoria</label>'+
     '<select class="inp sel" id="gcatsel">'+
-    '<option value="">-- Selecciona categoria --</option>'+
+    '<option value="">-- Selecciona categoría --</option>'+
     CATS.map(function(c){return '<option value="'+c.id+'">'+c.num+'. '+c.n+'</option>'}).join("")+
     '</select></div>'+
     '<div id="gcands" style="margin-bottom:10px"></div>'+
@@ -976,7 +1009,7 @@ function showAdm(){
     '<div style="margin-bottom:8px"><label class="lbl">Argumentario (opcional)</label>'+
     '<textarea class="ta" id="garg" style="min-height:65px" placeholder="Motivos por los que se incluye..."></textarea></div>'+
     '<div style="display:flex;gap:8px">'+
-    '<button class="btn bp bsm" id="gbenv">Aniadir candidato</button>'+
+    '<button class="btn bp bsm" id="gbenv">Añadir candidato</button>'+
     '<button class="btn bs bsm" id="gbcan">Cancelar</button>'+
     '</div></div>'+
     '<button class="btn ba bsm" id="gbopen" style="display:none;margin-top:8px">+ Aniadir nuevo candidato</button>';
@@ -1026,6 +1059,18 @@ function showAdm(){
     if(!confirm("Reiniciar lista de socios?"))return;
     fset("socios",{}).then(function(){socios=[];showAdm()});
   });
+  q("btfechas").addEventListener("click",function(){
+    var ini=q("fadmin_ini").value;
+    var fin=q("fadmin_fin").value;
+    if(!ini||!fin){alert("Introduce ambas fechas");return}
+    if(ini>fin){alert("La fecha de inicio no puede ser posterior a la de fin");return}
+    fset("fechas",{inicio:ini,fin:fin}).then(function(){
+      fechaInicio=ini;fechaFin=fin;
+      var msg=q("fechasmsg");
+      msg.textContent="Fechas guardadas correctamente";
+      setTimeout(function(){msg.textContent="";showAdm();},2000);
+    });
+  });
 
   // Propuestas: aprobar/rechazar
   el.addEventListener("click",function(e){
@@ -1074,7 +1119,7 @@ function showAdm(){
     }
     if(delCand){
       var cn=delCand.dataset.dcand,cid=delCand.dataset.dcat;
-      if(!confirm("Eliminar a "+cn+" de esta categoria?"))return;
+      if(!confirm("Eliminar a "+cn+" de esta categoría?"))return;
       remPropFromCat(cn,cid);
       // Si es propuesta, eliminar de Firebase
       fget("propuestas",function(raw){
@@ -1098,7 +1143,7 @@ function showAdm(){
     if(!cat)return;
     gcands.innerHTML="";
     if(cat.cands.length===0){
-      gcands.innerHTML='<div style="font-size:12px;color:#757575;font-style:italic;padding:4px 0">Sin candidatos en esta categoria</div>';
+      gcands.innerHTML='<div style="font-size:12px;color:#757575;font-style:italic;padding:4px 0">Sin candidatos en esta categoría</div>';
     } else {
       cat.cands.forEach(function(c){
         var ci=document.createElement("div");
@@ -1130,7 +1175,7 @@ function showAdm(){
   var ecard=document.createElement("div");
   ecard.className="card";
   ecard.innerHTML='<div class="ct" style="font-size:16px">Socios autorizados a votar</div>'+
-    '<div class="cs">Gestiona los emails que pueden acceder a la votacion. Total: <strong id="etotal">'+SOCIOS_AUTH.length+'</strong></div>'+
+    '<div class="cs">Gestiona los emails que pueden acceder a la votación. Total: <strong id="etotal">'+SOCIOS_AUTH.length+'</strong></div>'+
     '<div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">'+
     '<input class="inp" id="enuevo" placeholder="nuevo@email.com" style="flex:1;min-width:200px">'+
     '<button class="btn bp bsm" id="beadd">+ Aniadir</button>'+
@@ -1139,7 +1184,7 @@ function showAdm(){
     '<div style="font-size:12px;color:#555;margin-bottom:4px">Pegar lista de emails (uno por linea o separados por coma/punto y coma):</div>'+
     '<textarea id="ebulk" class="inp" placeholder="email1@ejemplo.com&#10;email2@ejemplo.com&#10;email3@ejemplo.com" style="width:100%;min-height:80px;font-size:12px;resize:vertical;box-sizing:border-box"></textarea>'+
     '<div style="display:flex;gap:8px;margin-top:5px">'+
-    '<button class="btn bp bsm" id="beaddmulti">+ Anadir lista</button>'+
+    '<button class="btn bp bsm" id="beaddmulti">+ Añadir lista</button>'+
     '<span id="ebulkmsg" style="font-size:12px;color:#2e7d32;line-height:28px"></span>'+
     '</div>'+
     '</div>'+
@@ -1227,12 +1272,12 @@ function showAdm(){
     var nom=q("gnom").value.trim();
     var mun=q("gmun").value.trim();
     var arg=q("garg").value.trim();
-    if(!cid){alert("Selecciona una categoria");return}
+    if(!cid){alert("Selecciona una categoría");return}
     if(!nom||nom.length<2){alert("Escribe el nombre del candidato");return}
     var cat=CATS.find(function(c){return c.id===cid});
     if(!cat)return;
     var ex=cat.cands.find(function(c){return c.n===nom});
-    if(ex){alert("Este candidato ya existe en la categoria");return}
+    if(ex){alert("Este candidato ya existe en la categoría");return}
     cat.cands.push({n:nom,m:mun||"s/d",a:arg,p:false});
     var nv={id:"adm"+Date.now(),catId:cid,nombre:nom,municipio:mun||"s/d",argumento:arg,socio:"Administrador",fecha:new Date().toLocaleString("es-ES"),aprobada:true};
     fpush("propuestas",nv).then(function(){
