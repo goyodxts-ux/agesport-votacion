@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Premios Agesport 2025 - Granada</title>
+<title>Premios Agesport Andalucia 2025</title>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <style>
@@ -159,53 +159,53 @@ firebase.initializeApp({
 var db=firebase.database();
 
 var CATS=[
-  {id:"c21",num:"2.1",n:"Gestor/a del Deporte",cands:[
-    {n:"Javier Luna Quesada",m:"Granada",a:"Jefe del Servicio de Apoyo Juridico de la Concejalia de Deportes del Ayuntamiento de Granada y profesor asociado de Derecho Administrativo de la UGR. Premiado en 2024 con el Premio a la Gobernanza Local de la FAMP, primer puesto entre todos los candidatos de Andalucia. Referente tecnico en jornadas sobre normativa deportiva.",p:false},
-    {n:"Jacinto Garzon Jimenez",m:"Guadix",a:"Reconocido en 2025 como mejor entrenador del anio por la RFEA tras guiar a Maria Perez a revalidar sus titulos mundiales en 20 y 35 km marcha en el Mundial de Tokio. Metodologia de planificacion cientifica referente en toda Andalucia.",p:false},
+  {id:"c21",num:"2.1",n:"Premio Salvador Jimenez - Gestor/a del Deporte",cands:[
+    {n:"Javier Luna Quesada",m:"Granada",a:"Funcionario de carrera y Jefe de Servicio de la Concejalia de Deportes del Ayuntamiento de Granada. Ganador del primer premio FAMP a la Gobernanza Local 2024 en la categoria de busqueda de la excelencia en clave local. Referente en gestion tecnico-juridica del deporte municipal, docente universitario en Derecho Administrativo y Deportivo.",p:false},
+    {n:"Antonio Cazorla",m:"Cabra (Cordoba)",a:"Gerente del Patronato Municipal de Deportes de Cabra. Ha consolidado un modelo deportivo municipal cercano, eficiente e inclusivo. Bajo su gestion el deporte se ha impulsado como herramienta de salud, educacion y cohesion ciudadana, con mas de 200.000 usos anuales en instalaciones, programas y actividades.",p:false},
   ]},
-  {id:"c22",num:"2.2",n:"Evento Deportivo",cands:[
-    {n:"41a Media Maraton Ciudad de Granada",m:"Granada",a:"Considerada la media maraton mas bonita de Espania, la edicion de 2025 reunio a mas de 5.000 atletas batiendo el record historico. Su trazado discurre por el Albaicin, la Alhambra y el Realejo. El 64% son de fuera de Granada generando unas 6.000 pernoctaciones.",p:false},
-    {n:"Campeonato Espania BTT XCO",m:"Baza",a:"Baza acgio por primera vez el Campeonato de Espania de BTT en XCO, XCC y XCR reuniendo 400 corredores. Escenario de la gesta de David Valero, decimo titulo nacional en su propia tierra. Circuito referente nacional del MTB.",p:false},
+  {id:"c22",num:"2.2",n:"Premio al Evento Deportivo",cands:[
+    {n:"Gran Premio de Espana de MotoGP - Jerez 2025",m:"Jerez de la Frontera (Cadiz)",a:"Uno de los eventos deportivos de mayor impacto internacional del calendario mundial. En 2025 alcanzo 224.420 espectadores, entre los tres Grandes Premios con mayor afluencia del motociclismo. Genera un impacto economico directo superior a 17,3 millones de euros. Retransmitido en mas de 200 paises.",p:false},
+    {n:"IV Meeting Internacional Ciudad de Malaga",m:"Malaga",a:"Incorporado al circuito World Athletics Continental Tour - Challenger en 2025. Reunio mas de 500 atletas de 59 paises de los cinco continentes y mas de 120 participantes en categorias de inclusion. Organizado por el Club Atletismo Malaga con apoyo de administraciones publicas.",p:false},
   ]},
-  {id:"c23",num:"2.3",n:"Industria del Deporte",cands:[
-    {n:"HSN Health Supplement Nutrition",m:"Escuzar",a:"Empresa granadina referente nacional en nutricion deportiva con mas de dos millones de clientes anuales. En 2025 inicio la construccion de 40.000 m2 en el Parque Metropolitano de Escuzar. Proveedor oficial del Granada CF y Fundacion CB Granada.",p:false},
-    {n:"Campos de Granada",m:"Motril",a:"Promotora del Premio Campos de Granada, XIV edicion en 2025. Combina eventos deportivos escolares, nauticos y de naturaleza con el turismo deportivo en la Costa Tropical.",p:false},
+  {id:"c23",num:"2.3",n:"Premio a la Industria del Deporte",cands:[
+    {n:"HSN - Health Supplement Nutrition",m:"Escuzar (Granada)",a:"Empresa espanola de origen granadino, lider en nutricion deportiva y dietetica natural online. Fundada en 2007, ha crecido hasta superar los 12.000 m2 de instalaciones con fabrica propia en la provincia de Granada y cerca de 200 empleos. Desarrolla mas de 2.300 referencias distribuidas por toda Europa.",p:false},
+    {n:"BeSoccer",m:"Malaga",a:"Empresa malagueana con la mayor base de datos de futbol del mundo. Modelo hibrido B2C y B2B que suministra API de datos en tiempo real a medios, agencias de apuestas y multinacionales. A traves de BeSoccer Pro ofrece soporte analitico avanzado a clubes de elite de todo el planeta.",p:false},
   ]},
-  {id:"c24",num:"2.4",n:"Patrocinio y Mecenazgo",cands:[
-    {n:"Coviran Granada",m:"Granada",a:"Primera cooperativa iberica por numero de establecimientos. Mas de trece anios de patrocinio ininterrumpido con el Fundacion CB Granada en la Liga ACB. Promueve economia social, deporte base y formacion en toda la provincia.",p:false},
-    {n:"Caja Rural Granada",m:"Granada",a:"Patrocinador mas transversal de la provincia: alianza con Fundacion CB Granada y presencia en la camiseta del Granada CF. Apoya el Circuito Provincial de Campo a Traves, escuelas deportivas y programas de jovenes atletas.",p:false},
+  {id:"c24",num:"2.4",n:"Premio a Patrocinio y Mecenazgo en el Deporte",cands:[
+    {n:"Fundacion Rincon",m:"Malaga",a:"Uno de los ejemplos mas solidos de patrocinio y mecenazgo deportivo en Malaga. Desarrolla una labor continuada de apoyo a clubes, deportistas, eventos y proyectos deportivos de diversa naturaleza. En 2025 celebro la II Gala SuperArte para visibilizar los valores del deporte, la cultura y la solidaridad.",p:false},
+    {n:"Clinicas Beiman",m:"Jerez de la Frontera (Cadiz)",a:"Empresa andaluza nacida en Jerez que ha convertido el apoyo al deporte en eje fundamental de su modelo empresarial. Presta asistencia sanitaria a numerosas federaciones y clubes, colabora en competiciones y promueve valores del deporte y la salud. Ha experimentado notable expansion por toda Andalucia.",p:false},
   ]},
-  {id:"c25",num:"2.5",n:"Entidad Deportiva Tercer Sector",cands:[
-    {n:"Fundacion CB Granada",m:"Granada",a:"De Primera Division Nacional a la Liga ACB en pocos anios. En 2024-2025 cuarta temporada en ACB con intensa labor social: escuelas de baloncesto y programas de formacion en valores para cientos de jovenes.",p:false},
-    {n:"Club Atletismo Ciudad de Motril",m:"Motril",a:"Referente del atletismo provincial. Ascendio a la Division de Honor en 2025. Contribuye al desarrollo del atletismo en la Costa Tropical promoviendo habitos de vida activa.",p:false},
+  {id:"c25",num:"2.5",n:"Premio a la Entidad Deportiva del Tercer Sector",cands:[
+    {n:"Superbasket Academia de Baloncesto 675",m:"Almeria",a:"Referente en deporte adaptado e inclusivo en Andalucia. Con mas de 110 deportistas en baloncesto adaptado y 70 en talleres de habilidades sociales, abrio el Centro Deportivo Inclusivo El Oasis en septiembre de 2025. Ha recibido el Premio San Sebastian de Algarrobo y el Premio Beiman-Divina Deporte, Salud y Valores.",p:false},
+    {n:"C.D. Balans",m:"Albolote (Granada)",a:"Primer centro de gimnasia acrobatica de Andalucia con instalaciones propias, ubicado en Albolote. Acoge a unos 180 deportistas desde los 3 anios, con presencia en varios municipios granadinos. Ha cosechado oros en gimnasia acrobatica y 17 podios en el Campeonato de Espana de Parkour 2025 de Mijas.",p:false},
   ]},
-  {id:"c26",num:"2.6",n:"Comunicacion en el Deporte",cands:[
-    {n:"Asoc. Granadina Periodistas Deportivos",m:"Granada",a:"Celebro en 2025 su 33a Gala del Deporte de Granada, acto de referencia del deporte provincial. Agrupa mas de 128 periodistas. Mas de tres decadas poniendo en valor a deportistas y gestores de la provincia.",p:false},
-    {n:"GranadaDigital Deporte",m:"Granada",a:"Medio digital de referencia del deporte granadino. Sus periodistas conducen la Gala del Deporte de la AGPD. Modelo de periodismo deportivo local en formato digital con impacto real.",p:false},
+  {id:"c26",num:"2.6",n:"Premio a la Comunicacion en el Deporte",cands:[
+    {n:"Fernando Soria Dorado",m:"Granada",a:"Periodista deportivo con casi medio siglo de trayectoria. Creador de Munideporte y la revista Deportistas. Impulsor del proyecto Espana se Mueve para mejorar la salud a traves del deporte. Dirige Al Limite en Radio Marca, el programa mas veterano de la radio deportiva.",p:false},
+    {n:"Ismael Medina",m:"Andalucia",a:"Periodista deportivo andaluz con mas de 35 anios de experiencia, una de las voces mas reconocidas en narracion de futbol en Espana. Habitual en transmisiones de Movistar Plus+, LaLiga TV y Gol Television. Colabora en Canal Sur Radio en el programa El Pelotazo.",p:false},
   ]},
-  {id:"c27",num:"2.7",n:"Mujer y Deporte",cands:[
-    {n:"Granada CF Femenino",m:"Granada",a:"Mejor clasificacion historica: quinto puesto en Liga F y semifinales Copa de la Reina 2024-2025. El filial B ascendio a Segunda RFEF ese mismo anio. Referente de inversion en deporte femenino desde la base hasta la elite nacional.",p:false},
-    {n:"Pipi Cardell",m:"Monachil",a:"Premio por la Igualdad de Genero de la Diputacion de Granada 2025. Ascension al Nanga Parbat abriendo nueva ruta, primera mujer en lograrlo. Referente del deporte femenino en entornos historicamente masculinizados.",p:false},
+  {id:"c27",num:"2.7",n:"Premio Mujer y Deporte",cands:[
+    {n:"Club Balonmano Costa del Sol",m:"Malaga",a:"Club fundado en 1994, consolidado en la maxima categoria nacional con titulos de Liga, Copa de la Reina, Supercopa de Espana y competicion europea. Referente del deporte femenino andaluz con mas de tres decadas formando deportistas y generando identidad colectiva para ninas y jovenes.",p:false},
+    {n:"Reyes Bellver Alonso",m:"Sevilla",a:"Directora de Futbol Femenino de la RFEF. Abogada de referencia mundial (Who's Who Legal) y arbitro del Tribunal Arbitral del Deporte (TAS/CAS). Mente juridica clave en reformas historicas sobre embarazo y maternidad de la FIFA. Fundadora de la plataforma internacional Leadership Woman Football.",p:false},
   ]},
-  {id:"c28",num:"2.8",n:"Infraestructura Deportiva",cands:[
-    {n:"Ciudad Deportiva Diputacion Granada",m:"Armilla",a:"180.000 m2, el complejo publico mas completo de la provincia. Pabellon, velodromo, piscina, campos de futbol, rugby, hockey, padel y tenis. Remodelacion integral de casi 800.000 euros en su 40 aniversario en 2025.",p:false},
-    {n:"Complejo Deportivo El Hoyo",m:"Guejar Sierra",a:"Pabellon, padel, patinaje, skate park, rocódromo y gimnasio. En 2025 aprobo piscina semiolimpica de 25x12,5 m con 942.000 euros de inversion. Modelo ejemplar de municipio rural con dotacion deportiva integral.",p:false},
+  {id:"c28",num:"2.8",n:"Premio a la Infraestructura Deportiva",cands:[
+    {n:"Plan Provincial de Inversiones PIDE 2025",m:"Provincia de Granada",a:"El plan de infraestructuras deportivas mas ambicioso de la historia de la Diputacion de Granada. Con 14,5 millones de euros, beneficia a 57 municipios financiando 19 pistas polideportivas, 8 campos de futbol, 9 piscinas, 8 pabellones y muchas otras instalaciones.",p:false},
+    {n:"Higuerón Sport Club",m:"Costa del Sol (Malaga)",a:"Infraestructura deportiva de referencia internacional de mas de 12.000 m2. Incluye gimnasio inteligente con Technogym, piscina climatizada de 25 m, 9 pistas de padel panoramicas, academia de tenis de alto rendimiento y el centro de baloncesto The Embassy fundado por Berni Rodriguez y Jose Manuel Calderon.",p:false},
   ]},
-  {id:"c29",num:"2.9",n:"Creacion de Conocimiento",cands:[
-    {n:"Programa Wadisalud Guadix UGR",m:"Guadix",a:"Programa pionero del Ayuntamiento de Guadix con la UGR. Mas de 100 estudiantes universitarios en talleres para 1.100 alumnos de secundaria. Reconocido con la Medalla de la Facultad de Farmacia y unico municipio andaluz en el Programa Fifty-Fifty del Ministerio de Sanidad.",p:false},
-    {n:"Circuitos BTT Diputacion de Granada",m:"Provincia",a:"Red de 6 circuitos provinciales con 37 eventos en carretera, BTT XCO, Media Maraton y Maraton. Genera metodologia organizativa transferible y buenas practicas en eventos en entornos naturales.",p:false},
+  {id:"c29",num:"2.9",n:"Premio a la Creacion de Conocimiento en la Gestion del Deporte",cands:[
+    {n:"Tesis Doctoral SEAT - Analisis Sostenible de Eventos Deportivos",m:"Granada",a:"Tesis doctoral que crea SEAT (Sport Event Assessment Tool), herramienta integral para evaluar el impacto economico, social, educativo, deportivo, medioambiental y de legado de eventos deportivos. Validada en 6 eventos reales con mas de 4.000 encuestas y 5 articulos cientificos publicados.",p:false},
+    {n:"PLIED La Linea de la Concepcion - Hacer Ciudad desde el Deporte",m:"La Linea de la Concepcion (Cadiz)",a:"Metodologia basada en Sistemas de Informacion Geografica para planificar instalaciones deportivas segun el acceso real de la poblacion. Aplicada a la ciudad espanola con menor esperanza de vida, identifica zonas desatendidas y orienta la inversion hacia donde mas impacto genera.",p:false},
   ]},
-  {id:"c210",num:"2.10",n:"Gestion Deportiva Municipal",cands:[
-    {n:"Ayuntamiento de Guadix",m:"Guadix",a:"Modelo innovador: Programa Wadisalud unico en Andalucia, Somos Equipo Promotor de Salud pionero en la provincia, colaboracion en el Circuito BTT, Campeonato de Andalucia de Lucha y renovacion de la pista Paquillo Fernandez.",p:false},
-    {n:"Ayuntamiento de Baza",m:"Baza",a:"Referente en eventos deportivos nacionales: Campeonato de Espania de BTT XCO con 400 corredores en 2025. Programa Verano Baza 2025 con mas de cien actividades. Vision integral del deporte como motor social y economico.",p:false},
+  {id:"c210",num:"2.10",n:"Premio a la Gestion Deportiva Publica Municipal",cands:[
+    {n:"Ayuntamiento de Cabra",m:"Cabra (Cordoba)",a:"Modelo de gestion deportiva innovador que supera anualmente los 200.000 usos entre instalaciones, programas y actividades. Inversion superior a 2,45 millones de euros en modernizacion integral de instalaciones 2021-2026. Referente andaluz en gestion deportiva publica municipal.",p:false},
+    {n:"Patronato Municipal de Deportes de La Rinconada",m:"La Rinconada (Sevilla)",a:"Referente absoluto en gestion deportiva a nivel nacional, premiado por el Consejo Superior de Deportes. Modelo integral con extenso catalogo de escuelas deportivas, apoyo al tejido asociativo y ambicioso plan de infraestructuras de vanguardia.",p:false},
   ]},
-  {id:"c211",num:"2.11",n:"Sostenibilidad en la Gestion",cands:[
-    {n:"Cetursa Sierra Nevada SA",m:"Monachil",a:"Sello de Huella Verde 2025, certificados de Evento Deportivo Sostenible del COE y Green Sport Flag de ADESP. Catedra UNESCO de la UGR. Programas activos de educacion ambiental dentro del Parque Nacional de Sierra Nevada.",p:false},
-    {n:"TerraIncognita Sport Ultra Sierra Nevada",m:"Granada",a:"Ultratrail a mayor altitud de la Peninsula con mas de 1.700 corredores de 50 nacionalidades. Limita el aforo por proteccion del Parque Nacional. Genera impacto economico sostenible en varios municipios.",p:false},
+  {id:"c211",num:"2.11",n:"Premio a la Sostenibilidad en la Gestion del Deporte",cands:[
+    {n:"Cetursa Sierra Nevada SA",m:"Monachil (Granada)",a:"Primera estacion de Espana en usar combustible 100% renovable en sus pisapistas y lider mundial en maquinas de pisado sostenibles. Posee el Sello de Huella Verde de la Camara de Comercio de Granada y el Evento Deportivo Sostenible del Comite Olimpico Espanol. Objetivo: neutralidad de emisiones en 2050.",p:false},
+    {n:"Programa Malaga como te quiero",m:"Malaga",a:"Estrategia integral de transformacion ambiental del Ayuntamiento de Malaga que establece criterios tecnicos para que eventos deportivos, carreras populares y grandes concentraciones sean sostenibles. Convierte el deporte en herramienta de educacion ambiental masiva.",p:false},
   ]},
-  {id:"c212",num:"2.12",n:"Deporte para Siempre",cands:[
-    {n:"Maria Perez Garcia",m:"Orce",a:"Deportista espaniola mas laureada de 2025: doblete mundial en 20 y 35 km marcha en Tokio. Medalla olimpica en Paris 2024. Uno de los cuatro atletas de la historia con dos dobletes de oros mundiales consecutivos. Nunca ha abandonado sus raices granadinas.",p:false},
-    {n:"Teresa Moya Garciolo",m:"Almuniecar",a:"Perdio la vista a los 16 anios y se convirtio en la unica gimnasta ciega que compite en Espania con campeonatos nacionales. Premio a la Superacion en la Gala del Deporte de Almuniecar 2025.",p:false},
+  {id:"c212",num:"2.12",n:"Premio Deporte para Siempre",cands:[
+    {n:"Jose Carlos Tejada Cabornero",m:"Almeria",a:"Presidente del Club de Deporte Adaptado Almeria (DEPOADAP) desde 2015. Convirtio el acompanamiento a su hijo Carlos, nadador con discapacidad intelectual y multiple medalla nacional, en un proyecto colectivo que ofrece oportunidades deportivas a cientos de personas con discapacidad de todas las edades.",p:false},
+    {n:"OWA Formacion y Entrenamiento - Dra. Lidia Romero",m:"Almeria",a:"Empresa centrada en el empoderamiento femenino a traves del entrenamiento fisico durante el embarazo y post-parto. La Dra. Lidia Romero, pionera y referente del sector desde 2012, ha desarrollado OWApp y programas especializados para incrementar la actividad fisica en mujeres embarazadas.",p:false},
   ]},
 ];
 
@@ -303,7 +303,7 @@ function buildApp(){
     '<header class="hdr">'+
     '<div style="display:flex;align-items:center;gap:9px">'+
     '<img src="'+LR+'" style="max-width:130px;height:34px;object-fit:contain">'+
-    '<div><div class="hdr-t">Premios Agesport 2025</div><div class="hdr-s">Delegacion Provincial de Granada</div></div>'+
+    '<div><div class="hdr-t">Premios Agesport 2025</div></div>'+
     '</div>'+
     '<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">'+
     '<div style="text-align:right">'+
