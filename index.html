@@ -408,7 +408,7 @@ var CATS=[
     {n:"BeSoccer",m:"Malaga",a:"Empresa malagueana con la mayor base de datos de futbol del mundo. Modelo hibrido B2C y B2B que suministra API de datos en tiempo real a medios, agencias de apuestas y multinacionales. A traves de BeSoccer Pro ofrece soporte analitico avanzado a clubes de elite de todo el planeta.",p:false},
   ]},
   {id:"c28",num:"2.8",n:"Premio a la Infraestructura Deportiva",cands:[
-    {n:"Higuerón Sport Club",m:"Costa del Sol (Malaga)",a:"Infraestructura deportiva de referencia internacional de mas de 12.000 m2. Incluye gimnasio inteligente con Technogym, piscina climatizada de 25 m, 9 pistas de padel panoramicas, academia de tenis de alto rendimiento y el centro de baloncesto The Embassy fundado por Berni Rodriguez y Jose Manuel Calderon.",p:false},
+    {n:"Higueron Sport Club",m:"Costa del Sol (Malaga)",a:"Infraestructura deportiva de referencia internacional de mas de 12.000 m2. Incluye gimnasio inteligente con Technogym, piscina climatizada de 25 m, 9 pistas de padel panoramicas, academia de tenis de alto rendimiento y el centro de baloncesto The Embassy fundado por Berni Rodriguez y Jose Manuel Calderon.",p:false},
     {n:"Plan Provincial de Inversiones PIDE 2025",m:"Provincia de Granada",a:"El plan de infraestructuras deportivas mas ambicioso de la historia de la Diputacion de Granada. Con 14,5 millones de euros beneficia a 57 municipios: 19 pistas polideportivas, 8 campos de futbol, 8 pabellones, 9 pistas de padel, 9 piscinas, 4 gimnasios y muchas mas instalaciones.",p:false},
     {n:"CEIP Capitan General Julio Coloma Gallegos",m:"Andalucia",a:"Instalaciones deportivas escolares que destacan por su diseno funcional y adecuada adaptacion para modalidades deportivas de personas con paralisis cerebral, dano cerebral adquirido y discapacidad. Usadas por la Federacion Andaluza de Deportes de Personas con Paralisis Cerebral.",p:false},
   ]},
@@ -569,7 +569,7 @@ function rebuildTabs(active){
       b.className="tb on";
       q("main").dataset.v=d.v;
       if(d.v==="vot")showVot();
-      else if(d.v==="pro"){};
+
       else if(d.v==="res")showRes();
       else if(d.v==="adm")showAdm();
     });
@@ -581,7 +581,7 @@ function goTab(v){
   rebuildTabs(v);
   q("main").dataset.v=v;
   if(v==="vot")showVot();
-  else if(v==="pro"){};
+
   else if(v==="res")showRes();
   else if(v==="adm")showAdm();
 }
@@ -759,7 +759,7 @@ function doEnviar(){
       '<div style="color:#333;font-size:14px;margin-bottom:4px">Tu voto ha sido registrado correctamente.</div>'+
       '<div style="color:#757575;font-size:13px;margin-bottom:4px">Has votado en <strong>'+votosEmitidos+'</strong> de las '+CATS.length+' categorias.</div>'+
       absMsg+
-      '<div style="color:#757575;font-size:12px;margin-bottom:20px;line-height:1.6;max-width:420px;margin-left:auto;margin-right:auto">Tu participacion es fundamental para reconocer la excelencia en la gestion deportiva en Andalucia.<br>¡Muchas gracias en nombre de AGESPORT!</div>'+
+      '<div style="color:#757575;font-size:12px;margin-bottom:20px;line-height:1.6;max-width:420px;margin-left:auto;margin-right:auto">Tu participacion es fundamental para reconocer la excelencia en la gestion deportiva en Andalucia.<br>Muchas gracias en nombre de AGESPORT!</div>'+
       '<button class="btn bp" id="bvr">Ver resultados en tiempo real</button></div>';
     q("bvr").addEventListener("click",function(){goTab("res")});
   }).catch(function(e){alert("Error: "+e.message)});
@@ -857,9 +857,7 @@ function showRes(){
 
   CATS.forEach(function(cat){
     var cv=votos[cat.id]||{};
-    var tot=0;Object.values(cv).forEach(function(k,_v){if(k!=="__abstencion__")tot+=cv[k]||0});
-    // Calcular total excluyendo abstenciones
-    tot=0;Object.keys(cv).forEach(function(k){if(k!=="__abstencion__")tot+=(cv[k]||0)});
+    var tot=0;Object.keys(cv).forEach(function(k){if(k!=="__abstencion__")tot+=(cv[k]||0)});
     var sorted=cat.cands.slice().sort(function(a,b){return(cv[sk(b.n)]||0)-(cv[sk(a.n)]||0)});
     var maxv=sorted.length>0?(cv[sk(sorted[0].n)]||0):0;
 
