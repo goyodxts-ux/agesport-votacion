@@ -520,8 +520,9 @@ function doLogin(){
     err.style.display="block";return;
   }
   var yv=socios.find(function(s){return s.email===eml});
-  if(yv){err.textContent="Este email ya voto el "+yv.fecha;err.style.display="block";return}
-  U={nom:nom,eml:eml,adm:false,vot:false};sel={};buildApp();
+  U={nom:nom,eml:eml,adm:false,vot:false};sel={};
+  if(yv){buildApp();rebuildTabs("res");showRes();return}
+  buildApp();
 }
 
 // ── APP ──
