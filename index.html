@@ -486,7 +486,8 @@ function showLogin(){
     '<div class="lt">Premios AGESPORT 2025</div>'+
     '<div class="lsu">Introduce tus datos para acceder.<br>Cada socio solo puede votar una vez.</div>'+
     '<div class="ler" id="lerr"></div>'+
-    '<div class="lf"><label class="lbl">Nombre completo *</label><input class="inp" id="lnom" placeholder="Tu nombre y apellidos"></div>'+
+    '<div class="lf"><label class="lbl">Nombre y apellidos *</label><input class="inp" id="lnombre" placeholder="Nombre Apellido1 Apellido2" maxlength="80"></div>'+
+    '<div class="lf"><label class="lbl">DNI *</label><input class="inp" id="lnom" placeholder="12345678A" maxlength="9" style="text-transform:uppercase"></div>'+
     '<div class="lf"><label class="lbl">Email *</label><input class="inp" id="leml" type="email" placeholder="tucorreo@ejemplo.com"></div>'+
     '<div class="apf" id="apfw"><label class="lbl">Contraseña administrador</label><input class="inp" id="lpas" type="password" placeholder="Contraseña"></div>'+
     '<div class="lav">Tu email se usa solo para evitar votos duplicados.</div>'+
@@ -497,21 +498,24 @@ function showLogin(){
     q("apfw").style.display=this.value.trim().toLowerCase()===AE?"block":"none";
   });
   q("lbtn").addEventListener("click",doLogin);
+  q("lnombre").addEventListener("keydown",function(e){if(e.key==="Enter")doLogin()});
   q("lnom").addEventListener("keydown",function(e){if(e.key==="Enter")doLogin()});
   q("leml").addEventListener("keydown",function(e){if(e.key==="Enter")doLogin()});
 }
 
 function doLogin(){
+  var nombre=q("lnombre").value.trim();
   var nom=q("lnom").value.trim();
   var eml=q("leml").value.trim().toLowerCase();
   var err=q("lerr");
   err.style.display="none";
-  if(!nom||nom.length<2){err.textContent="Escribe tu nombre completo";err.style.display="block";return}
+  if(!nombre||nombre.length<3){err.textContent="Por favor, introduce tu nombre y apellidos";err.style.display="block";return}
+  nom=nom.toUpperCase();if(!nom||!/^[0-9]{8}[A-Z]$/.test(nom)){err.textContent="DNI no válido (formato: 8 números y 1 letra, ej: 12345678A)";err.style.display="block";return}
   if(!eml||eml.indexOf("@")<0){err.textContent="Email no valido";err.style.display="block";return}
   var isAdmEmail=(eml==="agesport@agesport.org"||eml==="granada@agesport.org");
   if(eml===AE||isAdmEmail){
     var pas=q("lpas")?q("lpas").value:"";
-    if(pas===AP){U={nom:nom,eml:eml,adm:true,vot:false};sel={};buildApp();return}
+    if(pas===AP){U={nom:nombre,dni:nom,eml:eml,adm:true,vot:false};sel={};buildApp();return}
     if(pas!==""){err.textContent="Contraseña incorrecta";err.style.display="block";return}
   }
   // Verificar lista de socios autorizados
@@ -520,7 +524,7 @@ function doLogin(){
     err.style.display="block";return;
   }
   var yv=socios.find(function(s){return s.email===eml});
-  U={nom:nom,eml:eml,adm:false,vot:false};sel={};
+  U={nom:nombre,dni:nom,eml:eml,adm:false,vot:false};sel={};
   if(yv){buildApp();rebuildTabs("res");showRes();return}
   buildApp();
 }
@@ -616,15 +620,29 @@ function showVot(){
   // Barra progreso
   var prog=document.createElement("div");
   prog.className="card";
-  prog.style.cssText="padding:14px 18px;margin-bottom:12px";
+  prog.style.cssText="padding:16px 18px;margin-bottom:12px";
+  var barColor=pct===100?"linear-gradient(90deg,#1B5E20,#43A047)":pct>=50?"linear-gradient(90deg,#2E7D32,#66BB6A)":"linear-gradient(90deg,#388E3C,#A5D6A7)";
+  var barEmoji=pct===100?"🏆":pct>=50?"✅":"📋";
+  var barMsg=pct===100?"¡Has votado en todas las categorías! Ahora puedes enviar tu voto.":vot===0?"Selecciona tu candidato favorito en cada categoría.":"Llevas "+vot+" de "+tot+" categorías. ¡Sigue adelante!";
   prog.innerHTML=
-    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">'+
-    '<span style="font-weight:600;font-size:13px">Progreso: '+vot+' de '+tot+'</span>'+
-    '<span class="ep ea"><span class="dl"></span>Votación abierta</span>'+
-    (function(){var d=getCuentaAtras();return d>0?'<span style="background:#E8F5E9;color:#1B5E20;border-radius:12px;padding:2px 10px;font-size:12px;font-weight:600;margin-left:6px">&#9200; '+d+' día'+(d===1?'':'s')+'</span>':'<span style="background:#FFEBEE;color:#C62828;border-radius:12px;padding:2px 10px;font-size:12px;font-weight:600;margin-left:6px">Último día</span>';})()+
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">'+
+    '<div>'+
+    '<div style="font-weight:700;font-size:15px;color:#1B5E20">'+barEmoji+' Tu progreso de votación</div>'+
+    '<div style="font-size:12px;color:#757575;margin-top:2px">'+barMsg+'</div>'+
     '</div>'+
-    '<div style="height:6px;background:#E8F5E9;border-radius:6px;overflow:hidden">'+
-    '<div style="height:100%;width:'+pct+'%;background:linear-gradient(90deg,#1B5E20,#4CAF50);border-radius:6px;transition:width .4s"></div></div>';
+    '<div style="text-align:right;flex-shrink:0;margin-left:12px">'+
+    '<div style="font-size:26px;font-weight:900;color:#1B5E20;line-height:1">'+vot+'<span style="font-size:14px;color:#9E9E9E">/'+tot+'</span></div>'+
+    '<div style="font-size:10px;color:#9E9E9E;text-transform:uppercase;letter-spacing:.05em">categorías</div>'+
+    '</div>'+
+    '</div>'+
+    '<div style="height:10px;background:#E8F5E9;border-radius:10px;overflow:hidden">'+
+    '<div style="height:100%;width:'+pct+'%;background:'+barColor+';border-radius:10px;transition:width .5s ease"></div>'+
+    '</div>'+
+    '<div style="display:flex;justify-content:space-between;margin-top:5px">'+
+    '<span style="font-size:10px;color:#BDBDBD">0</span>'+
+    '<span style="font-size:11px;font-weight:700;color:'+(pct===100?"#1B5E20":"#757575")+'">'+pct+'%</span>'+
+    '<span style="font-size:10px;color:#BDBDBD">'+tot+'</span>'+
+    '</div>';
   el.appendChild(prog);
 
   // Categorias
@@ -797,8 +815,8 @@ function doEnviar(){
   });
   fset("votos",nv).then(function(){
     var f=new Date().toLocaleString("es-ES");
-    fpush("socios",{nombre:U.nom,email:U.eml,fecha:f});
-    socios.push({nombre:U.nom,email:U.eml,fecha:f});
+    fpush("socios",{nombre:U.nom,dni:U.dni,email:U.eml,fecha:f});
+    socios.push({nombre:U.nom,dni:U.dni,email:U.eml,fecha:f});
     U.vot=true;
     rebuildTabs("res");
     q("main").dataset.v="res";
@@ -963,11 +981,26 @@ function showAdm(){
   // Stats
   var scard=document.createElement("div");
   scard.className="card";
+  var totalAutorizados=SOCIOS_AUTH.length;
+  var pctParticipacion=totalAutorizados>0?Math.round(socios.length/totalAutorizados*100):0;
   scard.innerHTML='<div class="ct">Panel de administracion</div>'+
-    '<div class="g3" style="margin-bottom:16px">'+
+    '<div class="g3" style="margin-bottom:12px">'+
     '<div class="sb"><div class="sn">'+socios.length+'</div><div class="sl">Socios votantes</div></div>'+
     '<div class="sb"><div class="sn">'+tv+'</div><div class="sl">Votos totales</div></div>'+
     '<div class="sb"><div class="sn" style="color:'+(pend.length>0?"#E65100":"#1B5E20")+'">'+pend.length+'</div><div class="sl">Propuestas pendientes</div></div>'+
+    '</div>'+
+    '<div style="background:#F1F8E9;border-radius:10px;padding:12px 14px;margin-bottom:16px">'+
+    '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">'+
+    '<span style="font-weight:700;font-size:13px;color:#1B5E20">📊 Participación</span>'+
+    '<span style="font-size:22px;font-weight:900;color:#1B5E20">'+pctParticipacion+'%</span>'+
+    '</div>'+
+    '<div style="height:10px;background:#C8E6C9;border-radius:10px;overflow:hidden;margin-bottom:6px">'+
+    '<div style="height:100%;width:'+pctParticipacion+'%;background:linear-gradient(90deg,#1B5E20,#4CAF50);border-radius:10px;transition:width .5s"></div>'+
+    '</div>'+
+    '<div style="display:flex;justify-content:space-between;font-size:11px;color:#757575">'+
+    '<span><strong style="color:#1B5E20">'+socios.length+'</strong> socios han votado</span>'+
+    '<span>de <strong>'+totalAutorizados+'</strong> autorizados</span>'+
+    '</div>'+
     '</div>'+
     '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">'+
     '<button class="btn '+(estado==="abierta"?"bd":"bp")+'" id="btgest">'+(estado==="abierta"?"&#128274; Cerrar votación":"&#128275; Abrir votación")+'</button>'+
@@ -1053,6 +1086,7 @@ function showAdm(){
       '<thead><tr style="background:#F1F8E9">'+
       '<th style="padding:7px 10px;text-align:left;color:#1B5E20;border-bottom:2px solid #C8E6C9">#</th>'+
       '<th style="padding:7px 10px;text-align:left;color:#1B5E20;border-bottom:2px solid #C8E6C9">Nombre</th>'+
+      '<th style="padding:7px 10px;text-align:left;color:#1B5E20;border-bottom:2px solid #C8E6C9">DNI</th>'+
       '<th style="padding:7px 10px;text-align:left;color:#1B5E20;border-bottom:2px solid #C8E6C9">Email</th>'+
       '<th style="padding:7px 10px;text-align:left;color:#1B5E20;border-bottom:2px solid #C8E6C9">Fecha</th>'+
       '<th style="padding:7px 10px;text-align:center;color:#1B5E20;border-bottom:2px solid #C8E6C9">Quitar</th></tr></thead><tbody>';
@@ -1060,6 +1094,7 @@ function showAdm(){
       thtml+='<tr style="border-bottom:1px solid #E8F5E9;background:'+(i%2===0?"white":"#F9FBE7")+'">'+
         '<td style="padding:7px 10px;color:#757575">'+(i+1)+'</td>'+
         '<td style="padding:7px 10px;font-weight:600">'+s.nombre+'</td>'+
+        '<td style="padding:7px 10px;color:#757575;font-family:monospace">'+(s.dni||'-')+'</td>'+
         '<td style="padding:7px 10px;color:#757575">'+s.email+'</td>'+
         '<td style="padding:7px 10px;color:#757575">'+s.fecha+'</td>'+
         '<td style="padding:7px 10px;text-align:center"><button class="btn bd bsm" data-dem="'+s.email+'">X</button></td></tr>';
