@@ -614,6 +614,9 @@ function getEstadoFechas(){
 function showVot(){
   var main=q("main");
   if(estado==="cerrada"){main.innerHTML='<div class="card"><div class="em"><div style="font-size:40px">&#128274;</div><div style="margin-top:8px;font-weight:600">Votacion cerrada</div></div></div>';return}
+  var ef=getEstadoFechas();
+  if(!U.adm&&ef==="pendiente"){main.innerHTML='<div class="card"><div class="em"><div style="font-size:40px">&#128197;</div><div style="margin-top:8px;font-weight:600">La votación aún no ha comenzado</div><div style="color:#757575;font-size:13px;margin-top:6px">Se abrirá el '+new Date(fechaInicio+"T00:00:00").toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"})+'</div></div></div>';return}
+  if(!U.adm&&ef==="finalizada"){main.innerHTML='<div class="card"><div class="em"><div style="font-size:40px">&#9203;</div><div style="margin-top:8px;font-weight:600">El plazo de votación ha finalizado</div><div style="color:#757575;font-size:13px;margin-top:6px">El período de votación cerró el '+new Date(fechaFin+"T00:00:00").toLocaleDateString("es-ES",{day:"numeric",month:"long",year:"numeric"})+'</div></div></div>';return}
   var tot=CATS.length,vot=Object.keys(sel).length,pct=tot>0?Math.round(vot/tot*100):0;
   var el=document.createElement("div");
 
@@ -804,6 +807,9 @@ function doEnviar(){
   // Doble comprobacion: evitar voto duplicado aunque sea admin
   var yaVoto=socios.find(function(s){return s.email===U.eml});
   if(yaVoto){alert("Este email ya ha emitido su voto anteriormente.");return}
+  // Comprobar que estamos dentro del plazo (los admin pueden votar siempre)
+  if(!U.adm&&getEstadoFechas()!=="activa"){alert("El período de votación no está activo.");return}
+  if(!U.adm&&estado==="cerrada"){alert("La votación está cerrada.");return}
   var nv=JSON.parse(JSON.stringify(votos));
   var votosEmitidos=0;var abstenciones=0;
   Object.keys(sel).forEach(function(cid){
