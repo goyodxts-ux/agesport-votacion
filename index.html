@@ -977,6 +977,141 @@ function showRes(){
   setTimeout(function(){if(q("main")&&q("main").dataset.v==="res")showRes()},5000);
 }
 
+// ── GENERAR PDF ──
+function generarPDF(conSocios){
+  var hoy=new Date().toLocaleDateString("es-ES",{day:"2-digit",month:"2-digit",year:"numeric"});
+  var hora=new Date().toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"});
+  var totalAutorizados=SOCIOS_AUTH.length;
+  var pct=totalAutorizados>0?Math.round(socios.length/totalAutorizados*100):0;
+  var tv=0;Object.values(votos).forEach(function(cv){Object.values(cv).forEach(function(v){tv+=v})});
+  var estadoStr=estado==="abierta"?"Abierta ✓":"Cerrada ✗";
+  var efStr=getEstadoFechas()==="activa"?"En período activo":getEstadoFechas()==="pendiente"?"Pendiente de inicio":"Finalizada";
+
+  // Cabecera común
+  var html='<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">'+
+    '<title>'+(conSocios?"Informe Directiva":"Informe Socios")+' — Premios AGESPORT 2025</title>'+
+    '<style>'+
+    'body{font-family:Arial,sans-serif;font-size:12px;color:#1A1A1A;margin:0;padding:24px}'+
+    'h1{font-size:20px;color:#1B5E20;margin:0 0 4px 0}'+
+    'h2{font-size:14px;color:#1B5E20;margin:18px 0 8px 0;border-bottom:2px solid #C8E6C9;padding-bottom:4px}'+
+    '.meta{color:#666;font-size:11px;margin-bottom:18px}'+
+    '.logo-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:3px solid #1B5E20}'+
+    '.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700}'+
+    '.badge-ok{background:#E8F5E9;color:#1B5E20}.badge-ko{background:#FFEBEE;color:#C62828}'+
+    '.stats{display:flex;gap:16px;margin-bottom:18px;flex-wrap:wrap}'+
+    '.stat{background:#F1F8E9;border-radius:8px;padding:10px 16px;min-width:100px;text-align:center}'+
+    '.stat-n{font-size:26px;font-weight:900;color:#1B5E20}'+
+    '.stat-l{font-size:10px;color:#666;margin-top:2px}'+
+    '.pbar-bg{height:10px;background:#C8E6C9;border-radius:10px;overflow:hidden;margin:6px 0}'+
+    '.pbar-fg{height:100%;background:linear-gradient(90deg,#1B5E20,#4CAF50);border-radius:10px}'+
+    'table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:12px}'+
+    'th{background:#1B5E20;color:white;padding:6px 8px;text-align:left}'+
+    'td{padding:5px 8px;border-bottom:1px solid #E8F5E9}'+
+    'tr:nth-child(even) td{background:#F9FBE7}'+
+    '.cat-blk{margin-bottom:14px;page-break-inside:avoid}'+
+    '.cat-tit{font-size:12px;font-weight:700;color:#1B5E20;margin-bottom:5px}'+
+    '.pct-bar-bg{height:7px;background:#E8F5E9;border-radius:6px;overflow:hidden;display:inline-block;width:120px;vertical-align:middle}'+
+    '.pct-bar-fg{height:100%;background:#4CAF50;border-radius:6px}'+
+    '.footer{margin-top:28px;font-size:10px;color:#999;text-align:center;border-top:1px solid #E0E0E0;padding-top:8px}'+
+    '@media print{body{padding:12px}button{display:none}}'+
+    '</style></head><body>';
+
+  // Logo bar
+  html+='<div class="logo-bar">'+
+    '<div>'+
+    '<h1>Premios AGESPORT Andalucía 2025</h1>'+
+    '<div class="meta">'+
+    (conSocios?'<strong>Informe de Directiva</strong> — Uso interno y confidencial':'<strong>Informe de Estado de Votación</strong> — Versión pública')+
+    ' &nbsp;·&nbsp; Generado el '+hoy+' a las '+hora+
+    '</div>'+
+    '</div>'+
+    '<div style="text-align:right;font-size:11px;color:#1B5E20"><strong>AGESPORT</strong><br>Delegación Granada</div>'+
+    '</div>';
+
+  // Bloque de estado general
+  html+='<h2>Estado general</h2>';
+  html+='<div class="stats">'+
+    '<div class="stat"><div class="stat-n">'+socios.length+'</div><div class="stat-l">Socios votantes</div></div>'+
+    '<div class="stat"><div class="stat-n">'+totalAutorizados+'</div><div class="stat-l">Total autorizados</div></div>'+
+    '<div class="stat"><div class="stat-n">'+pct+'%</div><div class="stat-l">Participación</div></div>'+
+    '<div class="stat"><div class="stat-n">'+tv+'</div><div class="stat-l">Votos emitidos</div></div>'+
+    '</div>'+
+    '<div style="margin-bottom:6px"><strong>Participación:</strong> '+socios.length+' de '+totalAutorizados+' socios ('+pct+'%)</div>'+
+    '<div class="pbar-bg"><div class="pbar-fg" style="width:'+pct+'%"></div></div>'+
+    '<div style="margin-top:8px;font-size:11px;color:#555">'+
+    '<strong>Estado votación:</strong> <span class="badge '+(estado==="abierta"?"badge-ok":"badge-ko")+'">'+estadoStr+'</span> &nbsp;'+
+    '<strong>Período:</strong> '+fechaInicio+' → '+fechaFin+' ('+efStr+')'+
+    '</div>';
+
+  // Tabla socios (solo directiva)
+  if(conSocios){
+    html+='<h2>Socios que han votado ('+socios.length+')</h2>';
+    if(socios.length===0){
+      html+='<p style="color:#999;font-style:italic">Ningún socio ha votado todavía.</p>';
+    } else {
+      html+='<table><thead><tr><th>#</th><th>Nombre</th><th>DNI</th><th>Email</th><th>Fecha</th></tr></thead><tbody>';
+      socios.forEach(function(s,i){
+        html+='<tr><td>'+(i+1)+'</td><td>'+s.nombre+'</td><td style="font-family:monospace">'+(s.dni||'-')+'</td><td>'+s.email+'</td><td>'+s.fecha+'</td></tr>';
+      });
+      html+='</tbody></table>';
+    }
+  }
+
+  // Resultados por categoría
+  html+='<h2>Resultados por categoría</h2>';
+  CATS.forEach(function(cat){
+    var totalCat=0;
+    cat.cands.forEach(function(c){
+      var cv=votos[cat.id]||{};
+      totalCat+=Object.values(cv).reduce(function(s,v){return s+v},0);
+    });
+    html+='<div class="cat-blk"><div class="cat-tit">'+cat.num+'. '+cat.n+'</div>';
+    html+='<table><thead><tr><th>Candidato/a</th><th>Municipio</th><th>Votos</th><th>%</th>'+(conSocios?'<th>Barra</th>':'')+'</tr></thead><tbody>';
+    // Ordenar de mayor a menor votos
+    var cands=cat.cands.map(function(c){
+      var cv=votos[cat.id]||{};
+      var vv=Object.values(cv).reduce(function(s,v){return s+v},0);
+      // Votos de este candidato (posición en array)
+      var idx=cat.cands.indexOf(c);
+      var vcand=0;
+      Object.values(votos[cat.id]||{}).forEach(function(sel){if(typeof sel==="object"&&sel!==null){vcand+=(sel[idx]||0)}});
+      // Votos reales: votos[catId] es {uid: candidatoIndex}
+      return {n:c.n,m:c.m,v:0};
+    });
+    // Calcular votos por candidato correctamente
+    var vxc={};
+    var cv2=votos[cat.id]||{};
+    Object.values(cv2).forEach(function(vi){
+      if(typeof vi==="number"){vxc[vi]=(vxc[vi]||0)+1}
+    });
+    var ordenados=cat.cands.map(function(c,idx){
+      return {n:c.n,m:c.m||"",v:vxc[idx]||0};
+    }).sort(function(a,b){return b.v-a.v});
+    var totalCat2=ordenados.reduce(function(s,c){return s+c.v},0);
+    ordenados.forEach(function(c){
+      var pctC=totalCat2>0?Math.round(c.v/totalCat2*100):0;
+      html+='<tr><td style="font-weight:600">'+c.n+'</td><td style="color:#555">'+c.m+'</td>'+
+        '<td style="text-align:center;font-weight:700;color:#1B5E20">'+c.v+'</td>'+
+        '<td style="text-align:center">'+pctC+'%</td>'+
+        (conSocios?'<td><div class="pct-bar-bg"><div class="pct-bar-fg" style="width:'+pctC+'%"></div></div></td>':'')+
+        '</tr>';
+    });
+    html+='</tbody></table></div>';
+  });
+
+  // Footer
+  html+='<div class="footer">Premios AGESPORT Andalucía 2025 &nbsp;·&nbsp; Delegación Granada &nbsp;·&nbsp; '+
+    (conSocios?'DOCUMENTO CONFIDENCIAL — Uso exclusivo de la Directiva':'Informe público de participación')+
+    ' &nbsp;·&nbsp; '+hoy+'</div>';
+
+  html+='</body></html>';
+
+  var w=window.open("","_blank","width=900,height=700");
+  w.document.write(html);
+  w.document.close();
+  setTimeout(function(){w.print()},600);
+}
+
 // ── ADMIN ──
 function showAdm(){
   var pend=props.filter(function(p){return!p.aprobada});
@@ -1008,10 +1143,15 @@ function showAdm(){
     '<span>de <strong>'+totalAutorizados+'</strong> autorizados</span>'+
     '</div>'+
     '</div>'+
-    '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">'+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">'+
     '<button class="btn '+(estado==="abierta"?"bd":"bp")+'" id="btgest">'+(estado==="abierta"?"&#128274; Cerrar votación":"&#128275; Abrir votación")+'</button>'+
     '<button class="btn bs" id="btrv">Reiniciar votos</button>'+
     '<button class="btn bs" id="btrs">Reiniciar socios</button>'+
+    '</div>'+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;padding:10px 12px;background:#E8F5E9;border-radius:8px;border:1px solid #C5E1A5">'+
+    '<span style="font-size:12px;font-weight:600;color:#1B5E20;align-self:center;margin-right:4px">&#128196; Generar informe PDF:</span>'+
+    '<button class="btn bp bsm" id="btpdf_dir" title="Incluye tabla de socios con nombre, DNI y email">&#128081; Informe Directiva</button>'+
+    '<button class="btn bs bsm" id="btpdf_soc" title="Solo números y porcentajes, sin datos personales">&#128100; Informe Socios</button>'+
     '</div>'+
     '<div style="background:#F1F8E9;border:1px solid #C5E1A5;border-radius:8px;padding:12px 14px">'+
     '<div style="font-weight:600;font-size:13px;color:#1B5E20;margin-bottom:10px">&#128197; Período de votación</div>'+
@@ -1080,6 +1220,94 @@ function showAdm(){
     '</div></div>'+
     '<button class="btn ba bsm" id="gbopen" style="display:none;margin-top:8px">+ Aniadir nuevo candidato</button>';
   el.appendChild(gcard);
+
+  // ── BUSCADOR DE SOCIOS AUTORIZADOS ──
+  var sacard=document.createElement("div");
+  sacard.className="card";
+  sacard.innerHTML=
+    '<div class="ct" style="font-size:16px;margin-bottom:4px">&#128269; Base de datos de socios autorizados</div>'+
+    '<div class="cs" style="margin-bottom:12px">'+SOCIOS_AUTH.length+' emails habilitados para votar. Busca, añade o elimina.</div>'+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">'+
+    '<input class="inp" id="sa_busq" placeholder="Buscar email..." style="flex:1;min-width:180px;font-size:13px">'+
+    '<button class="btn bp bsm" id="sa_nuevo">+ Añadir email</button>'+
+    '</div>'+
+    '<div id="sa_newform" style="display:none;background:#F1F8E9;border:1px solid #C5E1A5;border-radius:8px;padding:12px;margin-bottom:10px">'+
+    '<div style="font-weight:600;font-size:13px;color:#1B5E20;margin-bottom:8px">Nuevo email autorizado</div>'+
+    '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+    '<input class="inp" id="sa_neweml" type="email" placeholder="correo@ejemplo.com" style="flex:1;min-width:180px;font-size:13px">'+
+    '<button class="btn bp bsm" id="sa_addok">Añadir</button>'+
+    '<button class="btn bs bsm" id="sa_addcan">Cancelar</button>'+
+    '</div>'+
+    '<div id="sa_adderr" style="display:none;color:#C62828;font-size:12px;margin-top:6px"></div>'+
+    '</div>'+
+    '<div id="sa_list" style="max-height:320px;overflow-y:auto;border:1px solid #E8F5E9;border-radius:8px"></div>'+
+    '<div id="sa_count" style="font-size:11px;color:#757575;margin-top:7px;text-align:right"></div>';
+  el.appendChild(sacard);
+
+  // Renderiza la lista filtrada
+  function renderSAList(filtro){
+    var f=(filtro||"").toLowerCase().trim();
+    var lista=f?SOCIOS_AUTH.filter(function(e){return e.toLowerCase().indexOf(f)>=0}):SOCIOS_AUTH.slice();
+    lista.sort();
+    var cont=q("sa_list");
+    var cnt=q("sa_count");
+    if(lista.length===0){
+      cont.innerHTML='<div style="padding:16px;text-align:center;color:#999;font-size:13px">No se encontraron resultados</div>';
+      cnt.textContent="";return;
+    }
+    var html='<table style="width:100%;border-collapse:collapse;font-size:12px">';
+    lista.forEach(function(em,i){
+      var yaVoto=socios.some(function(s){return s.email===em});
+      html+='<tr style="border-bottom:1px solid #E8F5E9;background:'+(i%2===0?"white":"#F9FBE7")+'" data-em="'+em+'">'+
+        '<td style="padding:6px 10px;font-family:monospace;color:#1A1A1A">'+em+'</td>'+
+        '<td style="padding:6px 8px;width:60px;text-align:center">'+
+        (yaVoto?'<span style="background:#E8F5E9;color:#1B5E20;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px">✓ votó</span>':'<span style="color:#bdbdbd;font-size:11px">pendiente</span>')+
+        '</td>'+
+        '<td style="padding:6px 8px;width:42px;text-align:center">'+
+        '<button class="btn bd bsm" style="padding:2px 8px;font-size:11px" data-del="'+em+'">✕</button>'+
+        '</td></tr>';
+    });
+    html+='</table>';
+    cont.innerHTML=html;
+    cnt.textContent="Mostrando "+lista.length+(f?" resultado"+(lista.length===1?"":"s")+" de "+SOCIOS_AUTH.length+" totales":" emails");
+    // Eventos borrar
+    cont.querySelectorAll("[data-del]").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        var em=this.getAttribute("data-del");
+        if(!confirm("Eliminar de la lista autorizada:\n"+em+"\n\nEsta acción es solo local y no actualiza Firebase.\n¿Continuar?"))return;
+        var idx=SOCIOS_AUTH.indexOf(em);
+        if(idx>=0)SOCIOS_AUTH.splice(idx,1);
+        renderSAList(q("sa_busq")?q("sa_busq").value:"");
+        q("sa_count").textContent=SOCIOS_AUTH.length+" emails autorizados";
+      });
+    });
+  }
+  renderSAList("");
+
+  // Eventos buscador
+  q("sa_busq").addEventListener("input",function(){renderSAList(this.value)});
+  q("sa_nuevo").addEventListener("click",function(){
+    q("sa_newform").style.display="block";
+    q("sa_adderr").style.display="none";
+    q("sa_neweml").value="";
+    q("sa_neweml").focus();
+  });
+  q("sa_addcan").addEventListener("click",function(){q("sa_newform").style.display="none"});
+  q("sa_addok").addEventListener("click",function(){
+    var em=q("sa_neweml").value.trim().toLowerCase();
+    var err=q("sa_adderr");
+    err.style.display="none";
+    if(!em||em.indexOf("@")<0){err.textContent="Introduce un email válido";err.style.display="block";return}
+    if(SOCIOS_AUTH.indexOf(em)>=0){err.textContent="Ese email ya está en la lista";err.style.display="block";return}
+    SOCIOS_AUTH.push(em);
+    q("sa_newform").style.display="none";
+    renderSAList(q("sa_busq").value||"");
+    // Resaltar el añadido
+    setTimeout(function(){
+      var bq=q("sa_busq");if(bq){bq.value=em;renderSAList(em);}
+    },100);
+  });
+  q("sa_neweml").addEventListener("keydown",function(e){if(e.key==="Enter")q("sa_addok").click()});
 
   // Socios votantes
   if(socios.length>0){
@@ -1201,6 +1429,10 @@ function showAdm(){
       var sel2=q("gcatsel");if(sel2)sel2.dispatchEvent(new Event("change"));
     }
   });
+
+  // Botones PDF
+  q("btpdf_dir").addEventListener("click",function(){generarPDF(true)});
+  q("btpdf_soc").addEventListener("click",function(){generarPDF(false)});
 
   // Gestión candidaturas: selector categoria
   q("gcatsel").addEventListener("change",function(){
