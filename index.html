@@ -1166,7 +1166,6 @@ function showAdm(){
     '<div style="margin-top:8px;font-size:12px;color:#555">Días restantes: <strong>'+(function(){var d=getCuentaAtras();return d>0?d+' día'+(d===1?'':'s'):'¡Hoy es el último día!';}())+'</strong></div>'+
     '</div>';
   el.appendChild(scard);
-  q("btgest",scard);
 
   // Propuestas pendientes
   if(pend.length>0){
@@ -1243,71 +1242,6 @@ function showAdm(){
     '<div id="sa_list" style="max-height:320px;overflow-y:auto;border:1px solid #E8F5E9;border-radius:8px"></div>'+
     '<div id="sa_count" style="font-size:11px;color:#757575;margin-top:7px;text-align:right"></div>';
   el.appendChild(sacard);
-
-  // Renderiza la lista filtrada
-  function renderSAList(filtro){
-    var f=(filtro||"").toLowerCase().trim();
-    var lista=f?SOCIOS_AUTH.filter(function(e){return e.toLowerCase().indexOf(f)>=0}):SOCIOS_AUTH.slice();
-    lista.sort();
-    var cont=q("sa_list");
-    var cnt=q("sa_count");
-    if(lista.length===0){
-      cont.innerHTML='<div style="padding:16px;text-align:center;color:#999;font-size:13px">No se encontraron resultados</div>';
-      cnt.textContent="";return;
-    }
-    var html='<table style="width:100%;border-collapse:collapse;font-size:12px">';
-    lista.forEach(function(em,i){
-      var yaVoto=socios.some(function(s){return s.email===em});
-      html+='<tr style="border-bottom:1px solid #E8F5E9;background:'+(i%2===0?"white":"#F9FBE7")+'" data-em="'+em+'">'+
-        '<td style="padding:6px 10px;font-family:monospace;color:#1A1A1A">'+em+'</td>'+
-        '<td style="padding:6px 8px;width:60px;text-align:center">'+
-        (yaVoto?'<span style="background:#E8F5E9;color:#1B5E20;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px">✓ votó</span>':'<span style="color:#bdbdbd;font-size:11px">pendiente</span>')+
-        '</td>'+
-        '<td style="padding:6px 8px;width:42px;text-align:center">'+
-        '<button class="btn bd bsm" style="padding:2px 8px;font-size:11px" data-del="'+em+'">✕</button>'+
-        '</td></tr>';
-    });
-    html+='</table>';
-    cont.innerHTML=html;
-    cnt.textContent="Mostrando "+lista.length+(f?" resultado"+(lista.length===1?"":"s")+" de "+SOCIOS_AUTH.length+" totales":" emails");
-    // Eventos borrar
-    cont.querySelectorAll("[data-del]").forEach(function(btn){
-      btn.addEventListener("click",function(){
-        var em=this.getAttribute("data-del");
-        if(!confirm("Eliminar de la lista autorizada:\n"+em+"\n\nEsta acción es solo local y no actualiza Firebase.\n¿Continuar?"))return;
-        var idx=SOCIOS_AUTH.indexOf(em);
-        if(idx>=0)SOCIOS_AUTH.splice(idx,1);
-        renderSAList(q("sa_busq")?q("sa_busq").value:"");
-        q("sa_count").textContent=SOCIOS_AUTH.length+" emails autorizados";
-      });
-    });
-  }
-  renderSAList("");
-
-  // Eventos buscador
-  q("sa_busq").addEventListener("input",function(){renderSAList(this.value)});
-  q("sa_nuevo").addEventListener("click",function(){
-    q("sa_newform").style.display="block";
-    q("sa_adderr").style.display="none";
-    q("sa_neweml").value="";
-    q("sa_neweml").focus();
-  });
-  q("sa_addcan").addEventListener("click",function(){q("sa_newform").style.display="none"});
-  q("sa_addok").addEventListener("click",function(){
-    var em=q("sa_neweml").value.trim().toLowerCase();
-    var err=q("sa_adderr");
-    err.style.display="none";
-    if(!em||em.indexOf("@")<0){err.textContent="Introduce un email válido";err.style.display="block";return}
-    if(SOCIOS_AUTH.indexOf(em)>=0){err.textContent="Ese email ya está en la lista";err.style.display="block";return}
-    SOCIOS_AUTH.push(em);
-    q("sa_newform").style.display="none";
-    renderSAList(q("sa_busq").value||"");
-    // Resaltar el añadido
-    setTimeout(function(){
-      var bq=q("sa_busq");if(bq){bq.value=em;renderSAList(em);}
-    },100);
-  });
-  q("sa_neweml").addEventListener("keydown",function(e){if(e.key==="Enter")q("sa_addok").click()});
 
   // Socios votantes
   if(socios.length>0){
@@ -1433,6 +1367,65 @@ function showAdm(){
   // Botones PDF
   q("btpdf_dir").addEventListener("click",function(){generarPDF(true)});
   q("btpdf_soc").addEventListener("click",function(){generarPDF(false)});
+
+  // ── BUSCADOR SOCIOS AUTORIZADOS ──
+  var renderSAList=function(filtro){
+    var f=(filtro||"").toLowerCase().trim();
+    var lista=f?SOCIOS_AUTH.filter(function(e){return e.toLowerCase().indexOf(f)>=0}):SOCIOS_AUTH.slice();
+    lista.sort();
+    var cont=q("sa_list");
+    var cnt=q("sa_count");
+    if(!cont)return;
+    if(lista.length===0){
+      cont.innerHTML='<div style="padding:16px;text-align:center;color:#999;font-size:13px">No se encontraron resultados</div>';
+      if(cnt)cnt.textContent="";return;
+    }
+    var html='<table style="width:100%;border-collapse:collapse;font-size:12px">';
+    lista.forEach(function(em,i){
+      var yaVoto=socios.some(function(s){return s.email===em});
+      html+='<tr style="border-bottom:1px solid #E8F5E9;background:'+(i%2===0?"white":"#F9FBE7")+'">'+
+        '<td style="padding:6px 10px;font-family:monospace;color:#1A1A1A">'+em+'</td>'+
+        '<td style="padding:6px 8px;width:60px;text-align:center">'+
+        (yaVoto?'<span style="background:#E8F5E9;color:#1B5E20;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px">✓ votó</span>':'<span style="color:#bdbdbd;font-size:11px">pendiente</span>')+
+        '</td>'+
+        '<td style="padding:6px 8px;width:42px;text-align:center">'+
+        '<button class="btn bd bsm" style="padding:2px 8px;font-size:11px" data-del="'+em+'">✕</button>'+
+        '</td></tr>';
+    });
+    html+='</table>';
+    cont.innerHTML=html;
+    if(cnt)cnt.textContent="Mostrando "+lista.length+(f?" resultado"+(lista.length===1?"":"s")+" de "+SOCIOS_AUTH.length+" totales":" emails");
+    cont.querySelectorAll("[data-del]").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        var em=this.getAttribute("data-del");
+        if(!confirm("Eliminar de la lista autorizada:\n"+em+"\n\nEsta acción es solo local (no actualiza Firebase).\n¿Continuar?"))return;
+        var idx=SOCIOS_AUTH.indexOf(em);
+        if(idx>=0)SOCIOS_AUTH.splice(idx,1);
+        renderSAList(q("sa_busq")?q("sa_busq").value:"");
+      });
+    });
+  };
+  renderSAList("");
+  if(q("sa_busq"))q("sa_busq").addEventListener("input",function(){renderSAList(this.value)});
+  if(q("sa_nuevo"))q("sa_nuevo").addEventListener("click",function(){
+    q("sa_newform").style.display="block";
+    q("sa_adderr").style.display="none";
+    q("sa_neweml").value="";
+    q("sa_neweml").focus();
+  });
+  if(q("sa_addcan"))q("sa_addcan").addEventListener("click",function(){q("sa_newform").style.display="none"});
+  if(q("sa_addok"))q("sa_addok").addEventListener("click",function(){
+    var em=q("sa_neweml").value.trim().toLowerCase();
+    var err=q("sa_adderr");
+    err.style.display="none";
+    if(!em||em.indexOf("@")<0){err.textContent="Introduce un email válido";err.style.display="block";return}
+    if(SOCIOS_AUTH.indexOf(em)>=0){err.textContent="Ese email ya está en la lista";err.style.display="block";return}
+    SOCIOS_AUTH.push(em);
+    q("sa_newform").style.display="none";
+    renderSAList(q("sa_busq").value||"");
+    setTimeout(function(){var bq=q("sa_busq");if(bq){bq.value=em;renderSAList(em);}},100);
+  });
+  if(q("sa_neweml"))q("sa_neweml").addEventListener("keydown",function(e){if(e.key==="Enter")q("sa_addok").click()});
 
   // Gestión candidaturas: selector categoria
   q("gcatsel").addEventListener("change",function(){
